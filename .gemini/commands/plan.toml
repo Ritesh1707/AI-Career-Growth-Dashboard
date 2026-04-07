@@ -1,0 +1,17 @@
+description = "Analyze first and create a plan before coding"
+
+prompt = """
+Analyze the current project context before making any changes.
+
+Do not write code yet.
+
+Your job:
+1. Inspect relevant files.
+2. Explain the current structure.
+3. Propose a step-by-step implementation plan.
+4. Mention risks, assumptions, and dependencies.
+5. Wait for approval before editing files.
+
+User request:
+{{args}}
+"""

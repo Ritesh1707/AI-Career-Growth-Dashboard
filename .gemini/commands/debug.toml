@@ -1,0 +1,15 @@
+description = "Debug an issue with root cause and minimal fix"
+
+prompt = """
+Debug the issue carefully.
+
+Your job:
+1. Understand the problem
+2. Identify likely root causes
+3. Inspect the relevant files or logic
+4. Suggest the smallest safe fix first
+5. Mention any risks or follow-up checks
+
+Issue:
+{{args}}
+"""

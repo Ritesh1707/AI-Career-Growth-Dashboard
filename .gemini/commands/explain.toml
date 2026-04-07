@@ -1,0 +1,14 @@
+description = "Explain architecture and tradeoffs simply"
+
+prompt = """
+Explain the current code or design in simple but professional terms.
+
+Cover:
+1. What it does
+2. Why it is structured this way
+3. Tradeoffs
+4. What would change in a larger production app
+
+Context:
+{{args}}
+"""
