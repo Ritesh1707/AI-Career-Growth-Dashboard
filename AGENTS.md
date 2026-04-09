@@ -1,37 +1,36 @@
-# Project Purpose
+# AGENTS.md
 
-This repository is an enterprise-style frontend learning project for building an **AI Career Growth Dashboard**.
+## Project
 
-The goal is to learn transferable AI-assisted engineering workflows while building a polished product-like React application with a cinematic landing experience and a premium dashboard UI.
+This repository is an enterprise-style frontend learning project for building an AI Career Growth Dashboard as a product-grade web application.
 
-This project is not a quick demo or portfolio-only site. It should feel like a real SaaS-style product that could later connect to enterprise APIs and real user data.
+The application should feel like a real SaaS-style product with:
+- a cinematic landing page,
+- a premium dashboard experience,
+- modular frontend architecture,
+- realistic mock data,
+- dark and light mode support.
 
-
-# Product Vision
-
-Build a career intelligence web app that helps users understand where they are, where they want to go, and what they should do next.
-
-The product should combine:
-- a cinematic landing page that creates strong first impression,
-- a dashboard experience with clear information hierarchy,
-- mock data for phase 1,
-- modular frontend architecture that can later support backend/API integration.
+This project is for learning strong engineering workflow, architecture discipline, and polished UI implementation.
 
 
-# Core Modules
+## Product Scope
 
-The main modules for the MVP are:
-- Skills
-- Jobs
-- Roadmap
-- Certifications
-- Projects
-- Education
+Phase 1 focuses on frontend only.
 
-The app should also include a high-level overview/dashboard area that summarizes progress and priorities.
+Main MVP modules:
+- overview
+- skills
+- jobs
+- roadmap
+- certifications
+- projects
+- education
+
+Do not add backend, authentication, database integration, or real APIs unless explicitly requested.
 
 
-# Tech Stack
+## Tech Stack
 
 - React.js
 - JavaScript
@@ -39,68 +38,105 @@ The app should also include a high-level overview/dashboard area that summarizes
 - React Router
 - Mock data first
 
-Do not add new libraries unless approved.
+Do not add new dependencies without approval.
 
 
-# Working Style
+## Working Style
 
-- Always analyze before editing.
-- Always propose a plan before creating or modifying files.
-- Keep changes scoped to the approved step only.
-- Prefer simple, maintainable architecture over clever shortcuts.
-- Prefer reusable components and clear folder boundaries.
-- Explain tradeoffs briefly in practical industry terms.
-- After implementation, review code for maintainability, scalability, and clarity.
-- If requirements are unclear, ask before implementing.
+- Always inspect relevant files before making changes.
+- Always propose a step-by-step plan before coding.
+- Keep changes scoped to the approved task only.
 - Prefer incremental implementation over large all-at-once generation.
+- Prefer clear, maintainable architecture over clever shortcuts.
+- Prefer reusable components and clear folder boundaries.
+- Explain tradeoffs briefly in practical engineering terms.
+- If requirements are unclear, ask before implementing.
+- After implementation, review for maintainability, scalability, clarity, and UI consistency.
 
 
-# Architecture Rules
+## Architecture Rules
 
 - Keep app code inside `/app`.
-- Keep feature modules separated by domain where reasonable.
-- Keep business logic separate from purely presentational UI where practical.
+- Prefer feature-based organization where practical.
+- Keep shared UI separate from feature-specific components.
+- Keep business/data logic reasonably separate from presentational UI.
 - Prefer explicit naming and small focused files.
-- Use shared components only when reuse is real, not hypothetical.
 - Keep mock data organized so it can later be replaced by APIs.
-- Document key architectural decisions in `/docs/decisions.md`.
+- Document important architectural decisions in `/docs/decisions.md`.
 
 
-# UI and Product Rules
+## UI Rules
 
-- The UI should feel premium, modern, and product-like.
+- The UI should feel premium, modern, and intentional.
 - Avoid generic template-looking layouts.
-- Avoid overusing random gradients, glowing blobs, and flashy effects.
-- Use dark mode and light mode.
-- Keep visual hierarchy strong and intentional.
-- Use motion carefully; polish is good, noise is bad.
-- Build real empty states, loading states, and realistic module states.
-- The landing page and dashboard should feel connected as one product.
+- Avoid unnecessary visual noise.
+- Avoid flashy effects that do not improve product feel.
+- Keep strong visual hierarchy.
+- Use motion carefully and with purpose.
+- Build realistic empty, loading, and partial-data states.
+- The landing page and dashboard should feel like one connected product.
 
 
-# Constraints
+## Coding Rules
 
-- Do not add backend code in phase 1 unless explicitly asked.
+- Use function components only.
 - Do not introduce TypeScript in the middle of the project unless approved.
-- Do not add dependencies without approval.
 - Do not refactor unrelated files.
 - Do not expand scope without approval.
-- Do not use class components.
+- Prefer local state first; add shared state only when clearly needed.
+- Keep mock data professional and structured.
+- Avoid premature abstraction.
 
 
-# Output Expectations
+## Approval Rules
 
-When asked to help:
-1. First inspect relevant files.
-2. Then propose a step-by-step plan.
-3. Wait for approval before large changes.
-4. After coding, summarize:
+Allowed without asking:
+- inspect files
+- read docs
+- propose plans
+- make small scoped changes after approval
+- update relevant project documentation
+
+Ask before:
+- adding dependencies
+- major refactors
+- changing architecture significantly
+- deleting files
+- changing tool configuration in risky ways
+- introducing backend or auth
+
+
+## Output Expectations
+
+For meaningful tasks:
+1. inspect relevant files
+2. summarize understanding
+3. propose a step-by-step plan
+4. wait for approval before large changes
+5. implement only the approved step
+6. summarize:
    - files changed
    - why changed
    - risks
    - next recommended step
 
-If continuing from a previous session, first read:
+
+## Important Docs
+
+Read these when relevant:
+- `/docs/prd.md`
+- `/docs/architecture.md`
+- `/docs/coding-standards.md`
+- `/docs/workflows.md`
 - `/docs/handoff.md`
 - `/docs/progress-log.md`
-- any files directly related to the requested task
+
+
+## Session Continuity
+
+If continuing from a previous session:
+- first read `/docs/handoff.md`
+- then `/docs/progress-log.md`
+- then only the files relevant to the current task
+
+Do not rely only on chat history if repository docs are available.
