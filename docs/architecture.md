@@ -7,7 +7,7 @@
 - **Styling:** Vanilla CSS (Modular) / Tailwind CSS
 - **State Management:** 
   - **Server State:** TanStack Query (React Query)
-  - **Global Client State:** Zustand
+  - **Global Client State:** Redux Toolkit
   - **Local State:** React `useState` / `useReducer`
 - **Testing:** Vitest + React Testing Library + MSW (Mock Service Worker)
 
