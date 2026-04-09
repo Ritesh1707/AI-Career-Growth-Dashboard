@@ -48,7 +48,7 @@ Set up the initial React project structure and create the first implementation p
 
 
 ## Relevant Files
-- `GEMINI.md`
+- `AGENTS.md`
 - `docs/prd.md`
 - `docs/architecture.md`
 - `docs/coding-standards.md`

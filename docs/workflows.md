@@ -103,7 +103,7 @@ Rules:
 - use `docs/handoff.md` for next-session continuity
 - use `docs/progress-log.md` for daily updates
 - use `docs/decisions.md` for important choices
-- keep `GEMINI.md` concise and current
+- keep `AGENTS.md` concise and current
 
 
 ## End-of-Session Workflow

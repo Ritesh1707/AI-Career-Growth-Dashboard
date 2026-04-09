@@ -46,16 +46,16 @@ Note: Target items are documented as direction and may not be wired in yet.
 ## Repository layout
 ```text
 .
-|-- app\                  # Vite + React application (run the product from here)
-|   |-- src\               # Application source
-|   |-- public\
+|-- app/                  # Vite + React application (run the product from here)
+|   |-- src/               # Application source
+|   |-- public/
 |   `-- package.json        # App scripts (dev/build/lint/preview)
 |
-|-- docs\                 # Product + engineering documentation (source of truth)
-|-- workflows\            # Operating procedures for AI-assisted dev
-|-- automation\           # Automation notes / helper docs
-|-- tooling\              # Dev tooling notes / helper docs
-|-- scratch\              # Experiments / temporary work (keep tidy)
+|-- docs/                 # Product + engineering documentation (source of truth)
+|-- workflows/            # Operating procedures for AI-assisted dev
+|-- automation/           # Automation notes / helper docs
+|-- tooling/              # Dev tooling notes / helper docs
+|-- scratch/              # Experiments / temporary work (keep tidy)
 |-- AGENTS.md              # Project constraints + working agreements
 `-- opencode.json          # Local tooling plugin configuration
 ```
@@ -142,7 +142,7 @@ Suggested PR checklist:
 ## Troubleshooting
 - Port already in use: stop the other process or run `npm run dev -- --port 5174`.
 - Node version issues: ensure Node 18+ (`node -v`).
-- Install problems: delete `app\node_modules` and rerun `npm install`.
+- Install problems: delete `app/node_modules` and rerun `npm install`.
 
 ---
 
