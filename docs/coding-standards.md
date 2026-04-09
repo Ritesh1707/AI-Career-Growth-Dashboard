@@ -1,27 +1,113 @@
 # Coding Standards
 
-## Naming Conventions
-- **Components:** `PascalCase` (e.g., `PrimaryButton.jsx`).
-- **Hooks:** `camelCase` with `use` prefix (e.g., `useAuth.js`).
-- **Utilities:** `camelCase` (e.g., `formatDate.js`).
-- **Files/Folders:** `kebab-case` for folders (e.g., `user-profile/`), match filename to export name for components.
+## Core Principles
 
-## Component Rules
-- **One Component per File:** Unless it's a tiny, private sub-component.
-- **Functional Components Only:** Use hooks, no class components.
-- **Prop Destructuring:** Always destructure props in the function signature.
-- **Explicit Exports:** Use `export default` for main components, and named exports for types/constants.
+- Prefer clarity over cleverness.
+- Prefer small focused components.
+- Prefer readable naming.
+- Prefer maintainable structure over short-term speed.
+- Avoid premature abstraction.
+- Keep code easy to explain in interviews.
 
-## React Best Practices
-- **Fragment Usage:** Prefer `<>...</>` to `<div>` where a wrapper isn't needed for styling.
-- **Key Prop:** Always use stable, unique IDs (not index) for list keys.
-- **Performance:** Use `useMemo` and `useCallback` only when necessary (don't over-optimize).
-- **Error Boundaries:** Wrap critical UI segments to prevent app-wide crashes.
 
-## State Management
-- **Keep it Local:** Only lift state when multiple features or pages need it.
-- **Derive State:** Calculate derived values during render, don't store them in state (e.g., calculate `filteredList` from `list` and `query` state).
+## Naming
 
-## CSS Standards
-- Prefer **CSS Modules** or **Tailwind CSS** to avoid global namespace collisions.
-- Use a design system approach (standardize colors, spacing, and font sizes in global variables/config).
+- Use clear, descriptive names.
+- Components: PascalCase
+- Hooks: camelCase and start with `use`
+- Utilities: camelCase
+- Constants: UPPER_SNAKE_CASE only when truly constant
+- File names should be consistent with the project style
+
+Examples:
+- `CareerScoreCard.jsx`
+- `useThemeMode.js`
+- `formatProgress.js`
+
+
+## Components
+
+- One component should have one clear responsibility.
+- If a component becomes too large, split by responsibility.
+- Keep presentational concerns separated from business/data mapping logic where practical.
+- Shared components should be generic.
+- Feature-specific components should stay inside their feature folders.
+
+
+## Props
+
+- Keep props explicit.
+- Avoid deeply nested props when a cleaner structure is possible.
+- Pass only what is needed.
+- Prefer simple prop interfaces.
+
+
+## State
+
+- Use local state first.
+- Lift state only when multiple children need shared coordination.
+- Avoid introducing global state too early.
+- Derived UI values should be computed cleanly, not duplicated.
+
+
+## Hooks
+
+- Use custom hooks only when logic is reused or meaningfully isolated.
+- Do not create hooks for trivial one-line logic.
+- Hook names must clearly describe purpose.
+
+
+## Styling
+
+- Use Tailwind CSS consistently.
+- Prefer reusable layout and spacing patterns.
+- Keep utility class usage readable.
+- Extract repeated UI patterns into components when repetition becomes real.
+- Maintain strong visual consistency between landing and dashboard experiences.
+
+
+## File Size and Complexity
+
+- Prefer smaller files with focused responsibility.
+- If a file becomes difficult to scan, split it.
+- Avoid giant mixed-purpose files.
+
+
+## Data and Mock Content
+
+- Use realistic mock data.
+- Keep data shape predictable.
+- Do not hardcode large datasets directly inside JSX when avoidable.
+- Keep mock content professional and product-like.
+
+
+## Imports
+
+- Keep imports organized.
+- Remove unused imports.
+- Group related imports cleanly.
+
+
+## Comments
+
+- Write comments only when they add real value.
+- Do not comment obvious code.
+- Use comments to explain intent, tradeoffs, or non-obvious decisions.
+
+
+## Error and Empty States
+
+- Build sensible empty states.
+- Handle incomplete data gracefully.
+- Avoid breaking UI because a field is missing in mock data.
+
+
+## Review Standard
+
+Before finalizing any step, review for:
+- readability
+- duplication
+- naming clarity
+- unnecessary complexity
+- folder placement correctness
+- future scalability
