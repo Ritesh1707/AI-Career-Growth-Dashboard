@@ -1,32 +1,116 @@
-# Development Workflows
+# Workflows
 
-This document outlines the standard operating procedures for various development tasks within the project. Adhering to these workflows ensures consistency, maintainability, and efficient collaboration.
+## Purpose
 
-## 1. Feature Development Workflow
-1.  **Understand Requirements:** Thoroughly read and understand the feature specification. Clarify any ambiguities with the product owner.
-2.  **Architectural Review:** If the feature impacts core architecture or introduces new patterns, discuss with the team and document decisions in `docs/decisions.md`.
-3.  **Plan Implementation (`plan-first.md`):** Create a detailed step-by-step implementation plan, including affected files, necessary changes, testing strategy, and potential risks. Submit for review.
-4.  **Implement Incrementally (`implement-step.md`):** Work on one logical step at a time. Write code, including relevant tests.
-5.  **Self-Review:** Before requesting a formal review, perform a self-review against `docs/coding-standards.md`.
-6.  **Code Review (`review-diff.md`):** Submit a pull request for team review. Address feedback promptly.
-7.  **Merge & Deploy:** Once approved, merge the changes and monitor deployment.
+This document defines how AI-assisted development should happen in this project.
 
-## 2. Bug Fixing Workflow
-1.  **Reproduce Bug:** Confirm the bug by reproducing it locally or in a test environment. Write a failing test case if one doesn't exist.
-2.  **Diagnose Root Cause:** Utilize debugging tools (e.g., Chrome DevTools, IDE debuggers) to identify the source of the bug.
-3.  **Plan Fix:** Propose a specific fix and a verification strategy.
-4.  **Implement Fix:** Apply the minimal necessary change to resolve the bug.
-5.  **Verify Fix:** Run the new failing test case (it should now pass) and all relevant unit/integration/E2E tests to ensure no regressions.
-6.  **Code Review:** Submit for code review.
+The goal is to make work predictable, reviewable, and transferable across tools such as Gemini CLI and other coding CLIs.
 
-## 3. Refactoring Workflow
-1.  **Define Goal:** Clearly articulate the goal of the refactoring (e.g., improve readability, enhance performance, reduce complexity).
-2.  **Ensure Test Coverage:** Verify that the code to be refactored has adequate test coverage to prevent introducing new bugs.
-3.  **Small, Safe Steps:** Perform refactoring in small, atomic commits. Each commit should leave the system in a working state.
-4.  **Continuous Testing:** Run tests after each small change to catch regressions immediately.
-5.  **Document Changes:** Update relevant documentation (e.g., `docs/architecture.md`, comments) if the refactoring alters public APIs or core logic.
 
-## 4. Documentation Workflow
-- **Live Documentation:** Keep documentation up-to-date with code changes. Treat documentation as code.
-- **Decision Records:** All significant architectural decisions, technology choices, or design patterns should be documented in `docs/decisions.md`.
-- **Coding Standards:** Refer to `docs/coding-standards.md` for all code-related guidelines.
+## General Working Flow
+
+For any meaningful task:
+1. inspect relevant files
+2. understand the request
+3. propose a step-by-step plan
+4. wait for approval if the change is significant
+5. implement only the approved step
+6. review the result
+7. summarize files changed, reasoning, risks, and next step
+
+
+## Planning Workflow
+
+Use when:
+- starting a new feature
+- changing architecture
+- adding a new module
+- requirements are unclear
+
+Expected behavior:
+- inspect current structure
+- identify impacted files
+- propose scoped steps
+- mention risks and assumptions
+- do not code before agreement
+
+
+## Implementation Workflow
+
+Use when:
+- plan is approved
+- change scope is clear
+
+Expected behavior:
+- make scoped changes only
+- avoid unrelated edits
+- keep implementation aligned with architecture and coding standards
+- prefer the smallest useful change that moves the project forward
+
+
+## Review Workflow
+
+Use when:
+- a coding step is completed
+- a diff should be checked for quality
+
+Expected review areas:
+- maintainability
+- readability
+- reusability
+- architecture fit
+- visual consistency
+- unnecessary complexity
+- future scaling concerns
+
+
+## Debug Workflow
+
+Use when:
+- something is broken
+- output does not match expectations
+- UI behavior is incorrect
+
+Expected behavior:
+- inspect issue carefully
+- identify likely root cause
+- propose the smallest safe fix
+- avoid random guessing
+- mention follow-up checks
+
+
+## Explain Workflow
+
+Use when:
+- architecture needs clarification
+- tradeoffs should be described
+- code should be understood in simple terms
+
+Expected behavior:
+- explain what exists
+- explain why it is structured that way
+- explain tradeoffs
+- explain how it could evolve later
+
+
+## Multi-CLI Workflow
+
+This project may be worked on with multiple AI coding tools.
+
+Rules:
+- the repository files are the source of truth
+- do not rely on chat memory as the only context
+- use `docs/handoff.md` for next-session continuity
+- use `docs/progress-log.md` for daily updates
+- use `docs/decisions.md` for important choices
+- keep `AGENTS.md` concise and current
+
+
+## End-of-Session Workflow
+
+Before ending a session:
+1. update `docs/progress-log.md`
+2. update `docs/handoff.md`
+3. note any important decision in `docs/decisions.md` if needed
+4. identify the exact next task
+5. keep the handoff short and actionable
