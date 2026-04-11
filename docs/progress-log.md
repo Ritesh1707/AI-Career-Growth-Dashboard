@@ -1,5 +1,53 @@
 # Progress Log
 
+## 2026-04-11
+
+### Completed
+- **Step 1: Project Foundation** — fully implemented and verified
+  - installed Tailwind CSS v3, PostCSS, Autoprefixer, react-router-dom v6
+  - configured Tailwind with `darkMode: 'class'` and CSS variable-based design tokens
+  - created `src/styles/tokens.css` — full light/dark color palette, shadows, radii, transitions
+  - created `src/index.css` — Tailwind directives, base styles, `transition-theme` utility
+  - created `src/app/providers/ThemeProvider.jsx` — context, localStorage persistence, OS preference
+  - created `src/hooks/useTheme.js` — convenience hook
+  - created `src/layouts/LandingLayout.jsx` — full-viewport shell
+  - created `src/layouts/DashboardLayout.jsx` — fixed sidebar, sticky topbar, content area
+  - created `src/pages/LandingPage.jsx` — placeholder with CTA to dashboard
+  - created `src/pages/DashboardPage.jsx` — placeholder with module card grid
+  - rewrote `src/App.jsx` — nested layout routes for `/` and `/dashboard`
+  - rewrote `src/main.jsx` — BrowserRouter + ThemeProvider wrapping
+  - updated `app/index.html` — title, meta description, Google Fonts (Outfit + DM Sans)
+  - deleted `src/App.module.css`
+  - documented 4 architecture decisions in `docs/decisions.md`
+
+### Verified
+- dev server runs without errors at `http://localhost:5173/`
+- landing page renders correctly with Outfit font heading
+- navigation from landing page to dashboard works
+- dashboard layout renders with sidebar, topbar, and content area
+- dark mode toggle works — persists across pages
+- production build succeeds (46 modules, 183.80 kB gzipped)
+
+### In Progress
+- nothing currently in progress
+
+### Pending
+- Step 2: cinematic landing page design and implementation
+- Step 3: dashboard module content (overview, skills, etc.)
+- mock data structure creation
+- sidebar navigation wiring to module routes
+- responsive design refinement
+
+### Risks / Watchouts
+- fonts (Outfit + DM Sans) are placeholder choices — may change during landing page design
+- sidebar nav items are not yet `<NavLink>` — need wiring when routes exist
+- no loading/error/empty state handling yet
+- no responsive sidebar collapse (mobile) yet
+
+### Next Session Goal
+Design and implement Step 2: Cinematic Landing Page
+
+
 ## 2026-04-10
 
 ### Completed
