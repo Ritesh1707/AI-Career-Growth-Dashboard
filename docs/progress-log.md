@@ -3,30 +3,21 @@
 ## 2026-04-13
 
 ### Completed
-- **Skills Module & Sidebar Routing Milestone**
-  - Updated `App.jsx` to handle nested `/dashboard/overview` and `/dashboard/skills` routes, with a redirect from `/dashboard`.
-  - Converted `DashboardLayout.jsx` sidebar items to use React Router `NavLink` for active state tracking and dynamic top-bar titles.
-  - Created `features/skills/data.js` to structure the target role, match percentage, and AI rationale.
-  - Implemented `SkillGapVisualizer.jsx` as the primary hero card, utilizing custom CSS width mapping to render current vs. required progress bars.
-  - Assembled `SkillsModule.jsx` and connected it to `SkillsPage.jsx`.
-  - Refined layout and spacing to ensure clean mobile rendering and proper UI card component nesting.
+- **Skills Module & Sidebar Routing**
+  - Configured nested routes (`/dashboard/overview`, `/dashboard/skills`).
+  - Wired sidebar `NavLink`s and dynamic top-bar titles.
+  - Created `skills/data.js` for target roles and AI rationale.
+  - Built `SkillGapVisualizer.jsx` hero card with CSS progress bars.
+  - Assembled `SkillsPage.jsx` and refined mobile layout.
 
 ### Verified
-- Sidebar active states trigger correctly on route changes.
-- Top bar title updates dynamically based on the current `NavLink`.
-- `SkillGapVisualizer` current-vs-required progress bars render cleanly without visual overlap.
-- Production build succeeds without errors.
-
-### In Progress
-- nothing currently in progress
+- Active sidebar states trigger on route changes.
+- CSS progress bars render cleanly.
+- Production build succeeds.
 
 ### Pending
 - Roadmap Module implementation.
 - Jobs Module implementation.
-
-### Risks / Watchouts
-- Future modules will need to emulate the routing pattern established here.
-- The `DashboardLayout` currently explicitly enables/disables specific `NavLink` paths; this array will need to be updated as new modules come online.
 
 ### Next Session Goal
 Implement the Roadmap Module to continue Phase 2.
