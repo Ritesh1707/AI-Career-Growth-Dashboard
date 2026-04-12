@@ -162,6 +162,7 @@ Recommended approach:
 - keep mock data centralized or feature-local depending on usage
 - design data in realistic shapes
 - avoid scattering large hardcoded objects across random components
+- **AI Simulation Support:** Mock data structures must include fields to simulate AI behavior (e.g., `ai_rationale`, `predictive_next_step`, `match_percentage`) to support the AI Copilot and Skill-Gap UX.
 
 Possible examples:
 - `features/skills/data.js`

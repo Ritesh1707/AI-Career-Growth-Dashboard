@@ -49,16 +49,16 @@ The product has two major parts:
 
 1. Cinematic landing page
 - premium first impression
-- strong storytelling
-- clear value proposition
+- strong storytelling selling the "AI Copilot" vision
+- clear value proposition (Skill gaps, Predictive Actions, Market Trends)
 - CTA into dashboard
 
 2. Dashboard application
 - overview of career state
-- actionable modules
-- progress-driven UX
+- actionable modules driven by "predictive" rather than "descriptive" data
+- progress-driven UX with gamified elements (Career Score, XP)
 - visual clarity and premium feel
-
+- simulated AI Copilot chat/side-panel for coaching and explanations
 
 ## MVP Modules
 
@@ -67,29 +67,28 @@ Purpose:
 - show headline summary of the user’s career growth status
 
 Includes:
-- career score
+- **Predictive Next Action:** A smart summary card stating exactly what the user should do next.
+- career score and gamified progress rings
 - current goal
 - top priorities
-- completion/progress summary
-- motivational summary or insight cards
 
 ### 2. Skills
 Purpose:
 - show current skills and skill gaps
 
 Includes:
+- **Skill-Gap Visualizer:** Heatmaps or comparison bars showing current skills vs. target role.
 - skill categories
-- strength indicators
 - missing skill tags
-- target-role comparison
 
 ### 3. Jobs
 Purpose:
 - align current profile with job targets
 
 Includes:
+- **Market Intelligence:** Data cards showing salary benchmarks and hot skills.
+- **Explainability Badges:** Tooltips explaining *why* a job is recommended.
 - target job roles
-- role requirements
 - readiness indicator
 - missing requirements
 

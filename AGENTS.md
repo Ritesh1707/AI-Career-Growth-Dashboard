@@ -5,14 +5,13 @@
 This repository is an enterprise-style frontend learning project for building an AI Career Growth Dashboard as a product-grade web application.
 
 The application should feel like a real SaaS-style product with:
-- a cinematic landing page,
-- a premium dashboard experience,
-- modular frontend architecture,
-- realistic mock data,
-- dark and light mode support.
+- a cinematic landing page
+- a premium dashboard experience
+- modular frontend architecture
+- realistic mock data
+- dark and light mode support
 
 This project is for learning strong engineering workflow, architecture discipline, and polished UI implementation.
-
 
 ## Product Scope
 
@@ -29,7 +28,6 @@ Main MVP modules:
 
 Do not add backend, authentication, database integration, or real APIs unless explicitly requested.
 
-
 ## Tech Stack
 
 - React.js
@@ -39,7 +37,6 @@ Do not add backend, authentication, database integration, or real APIs unless ex
 - Mock data first
 
 Do not add new dependencies without approval.
-
 
 ## Working Style
 
@@ -53,7 +50,6 @@ Do not add new dependencies without approval.
 - If requirements are unclear, ask before implementing.
 - After implementation, review for maintainability, scalability, clarity, and UI consistency.
 
-
 ## Architecture Rules
 
 - Keep app code inside `/app`.
@@ -63,7 +59,6 @@ Do not add new dependencies without approval.
 - Prefer explicit naming and small focused files.
 - Keep mock data organized so it can later be replaced by APIs.
 - Document important architectural decisions in `/docs/decisions.md`.
-
 
 ## UI Rules
 
@@ -76,8 +71,9 @@ Do not add new dependencies without approval.
 - Build realistic empty, loading, and partial-data states.
 - The landing page and dashboard should feel like one connected product.
 
-For significant UI, layout, component-system, and visual design tasks, consult `/agent-skills/frontend-design/SKILL.md` before proposing or implementing changes.
+For major UI/UX, dashboard, layout, design-system, and visual hierarchy tasks, consult `/agent-skills/ui-ux-pro-max/` before proposing or implementing changes.
 
+For component implementation, responsive layout, spacing, hierarchy, and visual polish tasks, consult `/agent-skills/frontend-design/SKILL.md` before proposing or implementing changes.
 
 ## Coding Rules
 
@@ -88,7 +84,6 @@ For significant UI, layout, component-system, and visual design tasks, consult `
 - Prefer local state first; add shared state only when clearly needed.
 - Keep mock data professional and structured.
 - Avoid premature abstraction.
-
 
 ## Approval Rules
 
@@ -107,7 +102,6 @@ Ask before:
 - changing tool configuration in risky ways
 - introducing backend or auth
 
-
 ## Output Expectations
 
 For meaningful tasks:
@@ -122,7 +116,6 @@ For meaningful tasks:
    - risks
    - next recommended step
 
-
 ## Important Docs
 
 Read these when relevant:
@@ -132,7 +125,6 @@ Read these when relevant:
 - `/docs/workflows.md`
 - `/docs/handoff.md`
 - `/docs/progress-log.md`
-
 
 ## Session Continuity
 
