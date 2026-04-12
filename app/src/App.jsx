@@ -3,13 +3,15 @@ import LandingLayout from './layouts/LandingLayout';
 import DashboardLayout from './layouts/DashboardLayout';
 import LandingPage from './pages/LandingPage';
 import DashboardPage from './pages/DashboardPage';
+import DesignSystemPage from './pages/DesignSystemPage';
 
 /**
  * App — root component
  *
  * Defines the top-level route structure:
- *   /          → LandingLayout → LandingPage
- *   /dashboard → DashboardLayout → DashboardPage
+ *   /              → LandingLayout → LandingPage
+ *   /dashboard     → DashboardLayout → DashboardPage
+ *   /design-system → DesignSystemPage (standalone for testing)
  */
 export default function App() {
   return (
@@ -24,6 +26,9 @@ export default function App() {
         <Route index element={<DashboardPage />} />
         {/* Future module routes will be added here */}
       </Route>
+
+      {/* Internal Tools */}
+      <Route path="/design-system" element={<DesignSystemPage />} />
     </Routes>
   );
 }
