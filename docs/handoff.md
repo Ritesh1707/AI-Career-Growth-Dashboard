@@ -4,7 +4,7 @@
 AI Career Growth Dashboard
 
 ## Current State
-Project foundation (Step 1) is complete and verified.
+Project foundation (Step 1) and Core UI Primitives (Design System) are complete and verified.
 
 Core infrastructure now in place:
 - React 18 + Vite 5
@@ -12,6 +12,9 @@ Core infrastructure now in place:
 - React Router v6 with nested layout routes
 - CSS custom property design token system (light + dark themes)
 - ThemeProvider context + useTheme hook
+- Core UI Primitives: Button, Badge, Card (family), Typography (Heading, Text)
+- Lightweight class merging utility (`cn`)
+- Standalone `/design-system` route for visual testing of primitives and tokens
 - LandingLayout (full-viewport) and DashboardLayout (sidebar + topbar) shells
 - Placeholder LandingPage and DashboardPage components
 - Google Fonts loaded (Outfit + DM Sans)
@@ -19,28 +22,22 @@ Core infrastructure now in place:
 Routes:
 - `/` → LandingLayout → LandingPage
 - `/dashboard` → DashboardLayout → DashboardPage
+- `/design-system` → DesignSystemPage
 
 
 ## Last Completed
-- installed Tailwind CSS v3 + PostCSS + Autoprefixer
-- installed react-router-dom v6
-- configured Tailwind with class-based dark mode and design tokens
-- created `src/styles/tokens.css` with full light/dark color system
-- created `src/index.css` with Tailwind directives and base styles
-- created ThemeProvider with localStorage persistence + OS preference detection
-- created useTheme convenience hook
-- created LandingLayout and DashboardLayout shells
-- created placeholder LandingPage and DashboardPage
-- wired routing in App.jsx and main.jsx
-- updated index.html with proper title, meta, Google Fonts
-- deleted old App.module.css
-- documented 4 architecture decisions in docs/decisions.md
-- verified dev server and production build
+- created `src/utils/cn.js` for tailwind class conditional merging
+- created `src/components/ui/Button.jsx` with variants (primary, secondary, outline, ghost, danger)
+- created `src/components/ui/Badge.jsx` with semantic variants
+- created `src/components/ui/Card.jsx` (Card, CardHeader, CardTitle, CardContent, CardFooter)
+- created `src/components/ui/Typography.jsx` (Heading, Text)
+- created `src/pages/DesignSystemPage.jsx` to test all primitives in light/dark mode
+- updated `src/App.jsx` to include `/design-system` route
 
 
 ## Important Constraints
 - no backend in phase 1
-- no dependency additions without approval
+- no dependency additions without approval (using custom `cn` utility instead of `tailwind-merge`/`clsx`)
 - no major abstractions too early
 - keep architecture simple but scalable
 - prioritize product feel, not template feel
@@ -60,6 +57,8 @@ Build the full landing page experience with:
 - dark/light mode support throughout
 - responsive design
 
+Compose the UI using the newly created Design System primitives.
+
 Consult `/agent-skills/frontend-design/SKILL.md` before designing.
 
 
@@ -69,20 +68,14 @@ Consult `/agent-skills/frontend-design/SKILL.md` before designing.
 - `docs/architecture.md`
 - `docs/coding-standards.md`
 - `docs/decisions.md`
-- `app/tailwind.config.js`
-- `app/src/styles/tokens.css`
-- `app/src/app/providers/ThemeProvider.jsx`
-- `app/src/hooks/useTheme.js`
-- `app/src/layouts/LandingLayout.jsx`
-- `app/src/layouts/DashboardLayout.jsx`
+- `app/src/components/ui/*.jsx`
 - `app/src/pages/LandingPage.jsx`
-- `app/src/pages/DashboardPage.jsx`
-- `app/src/App.jsx`
-- `app/src/main.jsx`
+- `app/src/layouts/LandingLayout.jsx`
 
 
 ## Notes for Next Session
-- The design token system is ready — all colors, shadows, radii are CSS custom properties.
+- The design token system and core UI components are ready.
+- Check `http://localhost:5173/design-system` to reference available components and states.
 - The sidebar nav items are placeholder `<div>`s — wire them as `<NavLink>` when module routes exist.
 - The topbar title is hardcoded "Dashboard" — make it dynamic when route-based context exists.
 - The landing page is a skeleton placeholder — replace entirely in Step 2.

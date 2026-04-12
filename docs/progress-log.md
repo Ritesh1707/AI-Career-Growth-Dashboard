@@ -1,5 +1,38 @@
 # Progress Log
 
+## 2026-04-13
+
+### Completed
+- **Design System / UI Primitives** — implemented and verified
+  - created `src/utils/cn.js` for lightweight Tailwind class merging
+  - created `src/components/ui/Button.jsx` with comprehensive variants and sizes
+  - created `src/components/ui/Badge.jsx` for semantic tagging
+  - created `src/components/ui/Card.jsx` primitive family for dashboard modules
+  - created `src/components/ui/Typography.jsx` (`Heading` and `Text`) to enforce typographic scale
+  - created `src/pages/DesignSystemPage.jsx` to visually test all tokens and primitives
+  - updated `src/App.jsx` to map the `/design-system` route
+
+### Verified
+- UI primitives successfully consume CSS design tokens
+- Dark mode transitions properly apply to all new components
+- Build succeeds with new component files
+
+### In Progress
+- nothing currently in progress
+
+### Pending
+- Step 2: cinematic landing page design and implementation
+- Step 3: dashboard module content (overview, skills, etc.)
+- mock data structure creation
+- sidebar navigation wiring to module routes
+- responsive design refinement
+
+### Risks / Watchouts
+- custom `cn` utility handles conditionals but not class deduplication (like `tailwind-merge`); be careful with override classes
+
+### Next Session Goal
+Design and implement Step 2: Cinematic Landing Page
+
 ## 2026-04-11
 
 ### Completed
