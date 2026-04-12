@@ -3,13 +3,44 @@
 ## 2026-04-13
 
 ### Completed
+- **Skills Module & Sidebar Routing Milestone**
+  - Updated `App.jsx` to handle nested `/dashboard/overview` and `/dashboard/skills` routes, with a redirect from `/dashboard`.
+  - Converted `DashboardLayout.jsx` sidebar items to use React Router `NavLink` for active state tracking and dynamic top-bar titles.
+  - Created `features/skills/data.js` to structure the target role, match percentage, and AI rationale.
+  - Implemented `SkillGapVisualizer.jsx` as the primary hero card, utilizing custom CSS width mapping to render current vs. required progress bars.
+  - Assembled `SkillsModule.jsx` and connected it to `SkillsPage.jsx`.
+  - Refined layout and spacing to ensure clean mobile rendering and proper UI card component nesting.
+
+### Verified
+- Sidebar active states trigger correctly on route changes.
+- Top bar title updates dynamically based on the current `NavLink`.
+- `SkillGapVisualizer` current-vs-required progress bars render cleanly without visual overlap.
+- Production build succeeds without errors.
+
+### In Progress
+- nothing currently in progress
+
+### Pending
+- Roadmap Module implementation.
+- Jobs Module implementation.
+
+### Risks / Watchouts
+- Future modules will need to emulate the routing pattern established here.
+- The `DashboardLayout` currently explicitly enables/disables specific `NavLink` paths; this array will need to be updated as new modules come online.
+
+### Next Session Goal
+Implement the Roadmap Module to continue Phase 2.
+
+## 2026-04-13 (Earlier, Overview Module)
+
+### Completed
 - **Dashboard Overview Milestone (Career Command Center)**
   - Created `app/src/features/dashboard/data.js` to serve as the mock data layer, including AI simulation fields (`predictiveNextStep`, `aiRationale`, etc.).
   - Implemented `PredictiveActionCard` to highlight the immediate next action with AI rationale.
   - Implemented `CareerScoreCard` featuring an SVG-based progress ring and gamified growth metrics.
   - Implemented `TopPrioritiesList` displaying short-term goals and corresponding AI explanations.
   - Composed the above into `OverviewModule.jsx` using a responsive 12-column CSS grid.
-  - Integrated `OverviewModule` permanently into `app/src/pages/DashboardPage.jsx`, establishing the primary dashboard layout.
+  - Integrated `OverviewModule` permanently into `app/src/pages/DashboardPage.jsx` (later renamed to `OverviewPage.jsx`), establishing the primary dashboard layout.
 
 ### Verified
 - UI primitives successfully handle complex compositions and responsive grid sizing.
