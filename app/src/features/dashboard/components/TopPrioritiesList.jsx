@@ -28,7 +28,7 @@ export function TopPrioritiesList({ priorities }) {
               <div className="flex items-start justify-between gap-3 mb-2">
                 <div className="flex items-start gap-3">
                   <span className="text-content-secondary mt-0.5 font-medium text-sm">
-                    0{index + 1}
+                    {String(index + 1).padStart(2, '0')}
                   </span>
                   <Text variant="body" className="font-semibold text-content leading-tight">
                     {priority.title}

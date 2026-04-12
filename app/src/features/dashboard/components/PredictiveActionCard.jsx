@@ -2,8 +2,11 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '../../../c
 import { Badge } from '../../../components/ui/Badge';
 import { Button } from '../../../components/ui/Button';
 import { Text } from '../../../components/ui/Typography';
+import { useNavigate } from 'react-router-dom';
 
 export function PredictiveActionCard({ nextStep }) {
+  const navigate = useNavigate();
+
   if (!nextStep) return null;
 
   const { title, type, estimatedTime, aiRationale, confidenceScore, urgency, actionLink } = nextStep;
@@ -62,7 +65,8 @@ export function PredictiveActionCard({ nextStep }) {
       <CardFooter className="pt-2 relative z-10">
         <Button 
           variant="primary" 
-          onClick={() => console.log(`Navigate to: ${actionLink}`)}
+          onClick={() => navigate(actionLink)}
+          disabled={!actionLink}
           className="w-full sm:w-auto"
         >
           Start Action

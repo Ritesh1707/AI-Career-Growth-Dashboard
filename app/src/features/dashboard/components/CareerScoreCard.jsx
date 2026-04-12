@@ -39,7 +39,7 @@ export function CareerScoreCard({ user, careerProgress }) {
           </div>
           
           <div className="relative flex items-center justify-center">
-            <svg className="w-24 h-24 transform -rotate-90">
+            <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 96 96" aria-hidden="true">
               <circle
                 className="text-border stroke-current"
                 strokeWidth="8"
