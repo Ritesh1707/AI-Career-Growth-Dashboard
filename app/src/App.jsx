@@ -1,13 +1,29 @@
-import React from 'react';
-import styles from './App.module.css';
+import { Routes, Route } from 'react-router-dom';
+import LandingLayout from './layouts/LandingLayout';
+import DashboardLayout from './layouts/DashboardLayout';
+import LandingPage from './pages/LandingPage';
+import DashboardPage from './pages/DashboardPage';
 
-const App = () => {
+/**
+ * App — root component
+ *
+ * Defines the top-level route structure:
+ *   /          → LandingLayout → LandingPage
+ *   /dashboard → DashboardLayout → DashboardPage
+ */
+export default function App() {
   return (
-    <div className={styles.App}>
-      <h1 className={styles.heading}>React Frontend Learning Lab</h1>
-      <p className={styles.text}>Project initialized. Ready for enterprise-style development.</p>
-    </div>
-  );
-};
+    <Routes>
+      {/* Landing experience */}
+      <Route element={<LandingLayout />}>
+        <Route index element={<LandingPage />} />
+      </Route>
 
-export default App;
+      {/* Dashboard experience */}
+      <Route path="/dashboard" element={<DashboardLayout />}>
+        <Route index element={<DashboardPage />} />
+        {/* Future module routes will be added here */}
+      </Route>
+    </Routes>
+  );
+}

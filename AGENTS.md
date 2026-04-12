@@ -76,6 +76,8 @@ Do not add new dependencies without approval.
 - Build realistic empty, loading, and partial-data states.
 - The landing page and dashboard should feel like one connected product.
 
+For significant UI, layout, component-system, and visual design tasks, consult `/agent-skills/frontend-design/SKILL.md` before proposing or implementing changes.
+
 
 ## Coding Rules
 
