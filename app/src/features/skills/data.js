@@ -1,31 +1,70 @@
-export const skillsData = {
-  targetRole: "Senior Frontend Engineer",
-  overallMatch: 78,
-  aiRationale: "Your React and CSS foundations are excellent. To cross the threshold for a Senior role, prioritize advanced performance optimization, TypeScript mastery, and CI/CD pipelines.",
-  categories: [
+export const mockSkillsData = {
+  targetRole: 'Senior Frontend Engineer',
+  overallMatch: 71,
+  summary:
+    'Your UI delivery is strong, but advanced architecture and testing depth are still the main gaps between your current profile and your target role.',
+  categoryComparisons: [
     {
-      name: "Core Frontend",
-      skills: [
-        { name: "React / Hooks", current: 90, required: 90, isGap: false },
-        { name: "CSS / Tailwind", current: 85, required: 80, isGap: false },
-        { name: "TypeScript", current: 65, required: 85, isGap: true }
-      ]
+      id: 'react-core',
+      label: 'React Core',
+      currentLevel: 82,
+      targetLevel: 90,
+      aiRationale:
+        'You are productive in day-to-day React work, but a higher ceiling is needed for deeper optimization and design tradeoff conversations.',
     },
     {
-      name: "Architecture & Performance",
-      skills: [
-        { name: "State Management", current: 75, required: 85, isGap: true },
-        { name: "Web Vitals & LCP", current: 60, required: 80, isGap: true },
-        { name: "Testing (Jest/Cypress)", current: 80, required: 80, isGap: false }
-      ]
+      id: 'performance',
+      label: 'Performance',
+      currentLevel: 58,
+      targetLevel: 84,
+      aiRationale:
+        'Performance is the clearest high-value gap because it influences both production quality and senior-level interview depth.',
     },
     {
-      name: "Infrastructure & Tools",
-      skills: [
-        { name: "CI/CD (GitHub Actions)", current: 40, required: 70, isGap: true },
-        { name: "Docker", current: 30, required: 60, isGap: true },
-        { name: "Git Workflow", current: 85, required: 85, isGap: false }
-      ]
-    }
-  ]
+      id: 'system-design',
+      label: 'Frontend Architecture',
+      currentLevel: 63,
+      targetLevel: 88,
+      aiRationale:
+        'You have solid implementation instincts, but you need stronger evidence of component boundaries, rendering strategy, and scalability thinking.',
+    },
+    {
+      id: 'testing',
+      label: 'Testing Discipline',
+      currentLevel: 54,
+      targetLevel: 78,
+      aiRationale:
+        'Testing is below target for senior-track roles and is currently reducing confidence in production-readiness.',
+    },
+  ],
+  missingSkills: [
+    {
+      id: 'profiling',
+      label: 'React profiling',
+      priority: 'high',
+      reason:
+        'You need stronger evidence that you can identify and explain render bottlenecks with real tooling.',
+    },
+    {
+      id: 'rendering-strategy',
+      label: 'Rendering strategy',
+      priority: 'high',
+      reason:
+        'Senior frontend roles expect clear reasoning about memoization, data flow, and component boundaries.',
+    },
+    {
+      id: 'test-strategy',
+      label: 'UI test strategy',
+      priority: 'medium',
+      reason:
+        'You can ship features, but the current profile does not yet show consistent regression-prevention discipline.',
+    },
+    {
+      id: 'accessibility-audits',
+      label: 'Accessibility audits',
+      priority: 'medium',
+      reason:
+        'Accessibility remains important for credibility, but it is slightly less urgent than architecture and performance right now.',
+    },
+  ],
 };
