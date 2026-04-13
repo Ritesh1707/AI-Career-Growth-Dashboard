@@ -3,56 +3,44 @@
 ## 2026-04-13
 
 ### Completed
-- **Skills Module & Sidebar Routing**
-  - Configured nested routes (`/dashboard/overview`, `/dashboard/skills`).
-  - Wired sidebar `NavLink`s and dynamic top-bar titles.
-  - Created `skills/data.js` for target roles and AI rationale.
-  - Built `SkillGapVisualizer.jsx` hero card with CSS progress bars.
-  - Assembled `SkillsPage.jsx` and refined mobile layout.
-
-### Verified
-- Active sidebar states trigger on route changes.
-- CSS progress bars render cleanly.
-- Production build succeeds.
-
-### Pending
-- Roadmap Module implementation.
-- Jobs Module implementation.
-
-### Next Session Goal
-Implement the Roadmap Module to continue Phase 2.
-
-## 2026-04-13 (Earlier, Overview Module)
-
-### Completed
-- **Dashboard Overview Milestone (Career Command Center)**
+- **Dashboard Overview, Roadmap, and Skills Modules Milestone**
   - Created `app/src/features/dashboard/data.js` to serve as the mock data layer, including AI simulation fields (`predictiveNextStep`, `aiRationale`, etc.).
   - Implemented `PredictiveActionCard` to highlight the immediate next action with AI rationale.
   - Implemented `CareerScoreCard` featuring an SVG-based progress ring and gamified growth metrics.
   - Implemented `TopPrioritiesList` displaying short-term goals and corresponding AI explanations.
   - Composed the above into `OverviewModule.jsx` using a responsive 12-column CSS grid.
-  - Integrated `OverviewModule` permanently into `app/src/pages/DashboardPage.jsx` (later renamed to `OverviewPage.jsx`), establishing the primary dashboard layout.
+  - Integrated `OverviewModule` permanently into `app/src/pages/DashboardPage.jsx`, establishing the primary dashboard layout.
+- **Roadmap Module Milestone (Guided Action Plan v1)**
+  - Added `app/src/features/roadmap/data.js` with a small, mock-data-driven roadmap model matching the existing AI rationale pattern.
+  - Implemented `RoadmapModule` with a premium hero, stage timeline, active milestone list, and next recommended action card.
+  - Added a dedicated `/dashboard/roadmap` route and minimal sidebar routing for `Overview` and `Roadmap`.
+  - Updated the dashboard top bar to reflect the active routed module.
+- **Skills Module Milestone (Skill Gap Snapshot v1)**
+  - Added `app/src/features/skills/data.js` with feature-local mock data aligned to the existing AI rationale style.
+  - Implemented `SkillsModule` with a compact hero, category comparison bars, and prioritized missing skills.
+  - Added a dedicated `/dashboard/skills` route and enabled the `Skills` sidebar item.
+  - Extended the dashboard top bar title logic so it stays in sync with routed modules.
 
 ### Verified
 - UI primitives successfully handle complex compositions and responsive grid sizing.
 - Circular SVG progress renders and transitions correctly using Tailwind utility classes.
 - Production build succeeds without errors.
 - The layout cleanly degrades to a single column on mobile viewports.
+- Roadmap module renders inside the existing dashboard shell without adding dependencies or changing the architecture.
+- Skills module renders inside the existing dashboard shell using the same shared primitives and routing pattern.
 
 ### In Progress
 - nothing currently in progress
 
 ### Pending
-- Implement routing and wiring for sidebar navigation.
-- Skills Module implementation.
-- Roadmap Module implementation.
+- Remaining sidebar navigation for unfinished modules.
 
 ### Risks / Watchouts
-- Sidebar navigation items are not yet wired to actual routes (e.g., clicking 'Skills' doesn't navigate).
 - Future modules will need to integrate with or expand the initial mock data structure created in this milestone.
+- Only `Overview`, `Skills`, and `Roadmap` are routed; other sidebar items remain intentionally inactive until their modules exist.
 
 ### Next Session Goal
-Implement the Skills Module and wire up sidebar routing.
+Implement the Jobs Module and extend the sidebar routing pattern for that module.
 
 ## 2026-04-13 (Earlier)
 
