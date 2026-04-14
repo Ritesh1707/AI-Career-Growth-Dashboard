@@ -21,6 +21,7 @@ import DesignSystemPage from './pages/DesignSystemPage';
  *   /dashboard/jobs     → JobsPage
  *   /dashboard/roadmap  → RoadmapPage
  *   /dashboard/certifications → CertificationsPage
+ *   /dashboard/projects → ProjectsPage
  *   /design-system → DesignSystemPage (standalone for testing)
  */
 export default function App() {
