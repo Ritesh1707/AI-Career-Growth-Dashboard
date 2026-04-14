@@ -29,7 +29,6 @@ Build an AI Career Growth Dashboard frontend that feels like a premium SaaS prod
 
 ### Open Questions
 - Jobs is the next missing major dashboard surface.
-- A stale `app/src/features/skills/components/SkillGapVisualizer.jsx` still exists from an older Skills approach, but it is not active and did not block the build.
 
 ### Exact Next Recommended Task
 Implement the Jobs Module and extend the established route/sidebar pattern to support `/dashboard/jobs`, using the same compact, mock-data-first dashboard composition.
