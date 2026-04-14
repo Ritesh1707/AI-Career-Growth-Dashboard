@@ -64,6 +64,15 @@ export default {
         'sidebar-collapsed': '4.5rem',
         'topbar': '4rem',
       },
+      keyframes: {
+        'fade-in': {
+          '0%': { opacity: '0', transform: 'translateY(4px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+      },
+      animation: {
+        'fade-in': 'fade-in var(--duration-normal) var(--ease-out) both',
+      },
     },
   },
   plugins: [],
