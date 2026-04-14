@@ -25,6 +25,7 @@ const headerTitleMap = {
   '/dashboard/jobs': 'Jobs',
   '/dashboard/roadmap': 'Roadmap',
   '/dashboard/certifications': 'Certifications',
+  '/dashboard/projects': 'Projects',
 };
 
 export default function DashboardLayout() {
