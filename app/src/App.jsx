@@ -6,6 +6,7 @@ import OverviewPage from './pages/OverviewPage';
 import RoadmapPage from './pages/RoadmapPage';
 import SkillsPage from './pages/SkillsPage';
 import JobsPage from './pages/JobsPage';
+import CertificationsPage from './pages/CertificationsPage';
 import DesignSystemPage from './pages/DesignSystemPage';
 
 /**
@@ -18,6 +19,7 @@ import DesignSystemPage from './pages/DesignSystemPage';
  *   /dashboard/skills   → SkillsPage
  *   /dashboard/jobs     → JobsPage
  *   /dashboard/roadmap  → RoadmapPage
+ *   /dashboard/certifications → CertificationsPage
  *   /design-system → DesignSystemPage (standalone for testing)
  */
 export default function App() {
@@ -35,6 +37,7 @@ export default function App() {
         <Route path="skills" element={<SkillsPage />} />
         <Route path="jobs" element={<JobsPage />} />
         <Route path="roadmap" element={<RoadmapPage />} />
+        <Route path="certifications" element={<CertificationsPage />} />
       </Route>
 
       {/* Internal Tools */}
