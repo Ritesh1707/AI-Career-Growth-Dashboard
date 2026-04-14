@@ -1,5 +1,6 @@
 import { Outlet, Link, NavLink, useLocation } from 'react-router-dom';
 import useTheme from '../hooks/useTheme';
+import { cn } from '../utils/cn';
 
 /**
  * DashboardLayout
@@ -8,24 +9,26 @@ import useTheme from '../hooks/useTheme';
  * This is a structural shell — visual polish comes in later steps.
  */
 
-const NAV_ITEMS = [
-  { name: 'Overview', path: '/dashboard/overview', enabled: true },
-  { name: 'Skills', path: '/dashboard/skills', enabled: true },
-  { name: 'Jobs', path: '/dashboard/jobs', enabled: false },
-  { name: 'Roadmap', path: '/dashboard/roadmap', enabled: false },
-  { name: 'Certifications', path: '/dashboard/certifications', enabled: false },
-  { name: 'Projects', path: '/dashboard/projects', enabled: false },
-  { name: 'Education', path: '/dashboard/education', enabled: false },
+const navItems = [
+  { label: 'Overview', to: '/dashboard', enabled: true },
+  { label: 'Skills', to: '/dashboard/skills', enabled: true },
+  { label: 'Jobs', enabled: false },
+  { label: 'Roadmap', to: '/dashboard/roadmap', enabled: true },
+  { label: 'Certifications', enabled: false },
+  { label: 'Projects', enabled: false },
+  { label: 'Education', enabled: false },
 ];
+
+const headerTitleMap = {
+  '/dashboard': 'Overview',
+  '/dashboard/skills': 'Skills',
+  '/dashboard/roadmap': 'Roadmap',
+};
 
 export default function DashboardLayout() {
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
-
-  const currentNavItem = NAV_ITEMS.find((item) =>
-    location.pathname.startsWith(item.path)
-  );
-  const pageTitle = currentNavItem ? currentNavItem.name : 'Dashboard';
+  const headerTitle = headerTitleMap[location.pathname] ?? 'Dashboard';
 
   return (
     <div className="min-h-screen bg-surface transition-theme flex">
@@ -34,7 +37,7 @@ export default function DashboardLayout() {
         {/* Brand */}
         <div className="h-topbar flex items-center px-5 border-b border-border">
           <Link
-            to="/dashboard/overview"
+            to="/dashboard"
             className="font-display font-semibold text-lg text-content tracking-tight"
           >
             CareerAI
@@ -47,34 +50,32 @@ export default function DashboardLayout() {
             Modules
           </p>
           <div className="space-y-1">
-            {NAV_ITEMS.map((item) => {
-              if (item.enabled) {
-                return (
-                  <NavLink
-                    key={item.name}
-                    to={item.path}
-                    className={({ isActive }) =>
-                      `block px-3 py-2 rounded-md text-sm transition-theme ${
-                        isActive
-                          ? 'bg-accent/10 text-accent font-medium'
-                          : 'text-content-secondary hover:bg-accent-subtle hover:text-accent'
-                      }`
-                    }
-                  >
-                    {item.name}
-                  </NavLink>
-                );
-              }
-              return (
-                <div
-                  key={item.name}
-                  className="px-3 py-2 rounded-md text-sm text-content-muted cursor-not-allowed flex items-center justify-between"
-                  title="Coming soon"
+            {navItems.map((item) =>
+              item.enabled ? (
+                <NavLink
+                  key={item.label}
+                  to={item.to}
+                  end={item.to === '/dashboard'}
+                  className={({ isActive }) =>
+                    cn(
+                      'block rounded-md px-3 py-2 text-sm transition-theme',
+                      isActive
+                        ? 'bg-accent-subtle text-accent'
+                        : 'text-content-secondary hover:bg-accent-subtle hover:text-accent'
+                    )
+                  }
                 >
-                  <span>{item.name}</span>
+                  {item.label}
+                </NavLink>
+              ) : (
+                <div
+                  key={item.label}
+                  className="rounded-md px-3 py-2 text-sm text-content-tertiary/80 cursor-default"
+                >
+                  {item.label}
                 </div>
-              );
-            })}
+              )
+            )}
           </div>
         </nav>
 
@@ -94,9 +95,7 @@ export default function DashboardLayout() {
       <div className="flex-1 ml-sidebar flex flex-col">
         {/* Top bar */}
         <header className="h-topbar bg-surface-raised/80 backdrop-blur-sm border-b border-border sticky top-0 z-20 flex items-center px-6 transition-theme">
-          <h2 className="text-sm font-medium text-content-secondary">
-            {pageTitle}
-          </h2>
+          <h2 className="text-sm font-medium text-content-secondary">{headerTitle}</h2>
         </header>
 
         {/* Content area */}

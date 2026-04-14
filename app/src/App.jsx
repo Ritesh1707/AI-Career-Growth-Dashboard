@@ -3,6 +3,7 @@ import LandingLayout from './layouts/LandingLayout';
 import DashboardLayout from './layouts/DashboardLayout';
 import LandingPage from './pages/LandingPage';
 import OverviewPage from './pages/OverviewPage';
+import RoadmapPage from './pages/RoadmapPage';
 import SkillsPage from './pages/SkillsPage';
 import DesignSystemPage from './pages/DesignSystemPage';
 
@@ -11,9 +12,10 @@ import DesignSystemPage from './pages/DesignSystemPage';
  *
  * Defines the top-level route structure:
  *   /              → LandingLayout → LandingPage
- *   /dashboard     → DashboardLayout → redirects to /dashboard/overview
- *   /dashboard/overview → OverviewPage
+ *   /dashboard     → DashboardLayout → OverviewPage
+ *   /dashboard/overview → redirects to /dashboard
  *   /dashboard/skills   → SkillsPage
+ *   /dashboard/roadmap  → RoadmapPage
  *   /design-system → DesignSystemPage (standalone for testing)
  */
 export default function App() {
@@ -26,10 +28,10 @@ export default function App() {
 
       {/* Dashboard experience */}
       <Route path="/dashboard" element={<DashboardLayout />}>
-        <Route index element={<Navigate to="/dashboard/overview" replace />} />
-        <Route path="overview" element={<OverviewPage />} />
+        <Route index element={<OverviewPage />} />
+        <Route path="overview" element={<Navigate to="/dashboard" replace />} />
         <Route path="skills" element={<SkillsPage />} />
-        {/* Future module routes will be added here */}
+        <Route path="roadmap" element={<RoadmapPage />} />
       </Route>
 
       {/* Internal Tools */}
