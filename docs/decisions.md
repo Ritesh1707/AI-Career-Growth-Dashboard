@@ -90,3 +90,25 @@ Create `src/app/` with a `providers/` subdirectory. Start with `ThemeProvider.js
 ### Consequences
 - The root import path for providers is `./app/providers/ProviderName`.
 - Does not conflict with Vite's expectation of `src/App.jsx` being the app component.
+
+---
+
+## ADR-005: Native Tailwind for Simple Data Visualizations
+
+**Date:** 2026-04-15  
+**Status:** Accepted
+
+### Context
+Modules like Skills, Jobs, and Certifications require simple data visualizations (e.g., skill gap bars, progress bars). We needed to decide whether to bring in an external charting library (like Recharts or Chart.js) or use native CSS.
+
+### Decision
+Use native Tailwind CSS with inline styles (e.g., `style={{ width: \`${progress}%\` }}`) for simple determinate progress bars and visualizations in Phase 1.
+
+### Rationale
+- Keeps the bundle size small and avoids external dependencies.
+- Maintains visual consistency with the existing design system and theme colors (`bg-success`, `bg-accent`).
+- Fulfills the MVP requirements without overengineering.
+
+### Consequences
+- We will not install an external charting library until complex data visualizations (like line charts or scatter plots) become strictly necessary.
+- Progress bars and similar simple visual indicators are built using nested `div`s and Tailwind utilities.
