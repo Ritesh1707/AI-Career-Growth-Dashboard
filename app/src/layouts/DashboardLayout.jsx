@@ -12,7 +12,7 @@ import { cn } from '../utils/cn';
 const navItems = [
   { label: 'Overview', to: '/dashboard', enabled: true },
   { label: 'Skills', to: '/dashboard/skills', enabled: true },
-  { label: 'Jobs', enabled: false },
+  { label: 'Jobs', to: '/dashboard/jobs', enabled: true },
   { label: 'Roadmap', to: '/dashboard/roadmap', enabled: true },
   { label: 'Certifications', enabled: false },
   { label: 'Projects', enabled: false },
@@ -22,6 +22,7 @@ const navItems = [
 const headerTitleMap = {
   '/dashboard': 'Overview',
   '/dashboard/skills': 'Skills',
+  '/dashboard/jobs': 'Jobs',
   '/dashboard/roadmap': 'Roadmap',
 };
 

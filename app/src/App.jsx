@@ -5,6 +5,7 @@ import LandingPage from './pages/LandingPage';
 import OverviewPage from './pages/OverviewPage';
 import RoadmapPage from './pages/RoadmapPage';
 import SkillsPage from './pages/SkillsPage';
+import JobsPage from './pages/JobsPage';
 import DesignSystemPage from './pages/DesignSystemPage';
 
 /**
@@ -15,6 +16,7 @@ import DesignSystemPage from './pages/DesignSystemPage';
  *   /dashboard     → DashboardLayout → OverviewPage
  *   /dashboard/overview → redirects to /dashboard
  *   /dashboard/skills   → SkillsPage
+ *   /dashboard/jobs     → JobsPage
  *   /dashboard/roadmap  → RoadmapPage
  *   /design-system → DesignSystemPage (standalone for testing)
  */
@@ -31,6 +33,7 @@ export default function App() {
         <Route index element={<OverviewPage />} />
         <Route path="overview" element={<Navigate to="/dashboard" replace />} />
         <Route path="skills" element={<SkillsPage />} />
+        <Route path="jobs" element={<JobsPage />} />
         <Route path="roadmap" element={<RoadmapPage />} />
       </Route>
 
