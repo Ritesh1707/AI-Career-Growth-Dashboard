@@ -39,7 +39,7 @@ export function RoadmapMilestoneList({ milestones }) {
             <div
               key={milestone.id}
               className={cn(
-                'rounded-2xl border p-5 transition-colors duration-fast',
+                'rounded-2xl border p-5 transition-colors duration-150',
                 style.accent
               )}
             >
