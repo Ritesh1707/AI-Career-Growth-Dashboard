@@ -14,7 +14,7 @@ const navItems = [
   { label: 'Skills', to: '/dashboard/skills', enabled: true },
   { label: 'Jobs', to: '/dashboard/jobs', enabled: true },
   { label: 'Roadmap', to: '/dashboard/roadmap', enabled: true },
-  { label: 'Certifications', enabled: false },
+  { label: 'Certifications', to: '/dashboard/certifications', enabled: true },
   { label: 'Projects', enabled: false },
   { label: 'Education', enabled: false },
 ];
@@ -24,6 +24,7 @@ const headerTitleMap = {
   '/dashboard/skills': 'Skills',
   '/dashboard/jobs': 'Jobs',
   '/dashboard/roadmap': 'Roadmap',
+  '/dashboard/certifications': 'Certifications',
 };
 
 export default function DashboardLayout() {
