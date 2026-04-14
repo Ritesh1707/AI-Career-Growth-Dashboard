@@ -15,7 +15,7 @@ const navItems = [
   { label: 'Jobs', to: '/dashboard/jobs', enabled: true },
   { label: 'Roadmap', to: '/dashboard/roadmap', enabled: true },
   { label: 'Certifications', to: '/dashboard/certifications', enabled: true },
-  { label: 'Projects', enabled: false },
+  { label: 'Projects', to: '/dashboard/projects', enabled: true },
   { label: 'Education', enabled: false },
 ];
 
