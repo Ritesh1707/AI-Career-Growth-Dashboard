@@ -5,6 +5,7 @@ node_modules/
 .pnp.js
 */graphify-out
 plan.md
+build-output.log
 # Build outputs
 dist/
 build/
