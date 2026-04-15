@@ -4,32 +4,33 @@
 Build an AI Career Growth Dashboard frontend that feels like a premium SaaS product, using React, JavaScript, Tailwind CSS, React Router, and mock data only for Phase 1.
 
 ## Current Branch
-`feature/phase-4-polish-states`
+`feature/phase-4-polish-theme`
 
 ## What Was Completed In This Session
-- Continued Phase 4 (Polish & Refinement) by addressing the data lifecycle and absence states.
-- Created reusable UI primitives for loading and empty states: `LoadingState.jsx` (with `Skeleton` and `CardSkeleton`) and `EmptyState.jsx`.
-- Integrated a simulated local loading delay and `CardSkeleton` loading states into the `OverviewModule` and `SkillsModule` to prevent layout shift.
-- Integrated the `EmptyState` component into the `SkillsModule` to render when no data is available.
-- Verified layout in both light and dark mode and verified production build compiles successfully.
+- Continued Phase 4 (Polish & Refinement) by completing the Core Primitives & Theme Polish milestone.
+- Standardized the app shell background and text color assignments.
+- Refined `Card` surface contrast, shadow treatments, and border properties.
+- Tightened `Typography` hierarchy for primary, secondary, and muted text.
+- Enhanced `Badge` and `Button` theme parity for dark/light mode swapping.
+- Removed invalid Tailwind opacity modifiers on custom hex tokens across the application layout and base UI primitives (`EmptyState`, `LoadingState`, `DashboardLayout`).
+- Verified text hierarchy, card contrast, borders, and visual layout.
+- Verified production build compiles successfully.
 
 ## Documentation Updates Made
-- Updated `docs/handoff.md` and `docs/progress-log.md` to reflect the completed Phase 4 milestone (Loading & Empty States).
+- Updated `docs/handoff.md` and `docs/progress-log.md` to reflect the completed Phase 4 Theme Polish milestone.
 
 ## Decisions That Are Final And Should Not Be Reopened
+- Custom CSS properties initialized in `tokens.css` must rely on predefined subtle/raised tokens instead of Tailwind opacity modifiers (e.g., `bg-surface-raised` instead of `bg-surface/30`) to ensure broad browser compatibility.
+- Buttons rely on `text-content-inverse` to guarantee perfect contrast against accent or error backgrounds across themes.
 - Dashboard modules use nested React Router routes.
 - Phase 1 stays frontend-only with no backend, auth, database, real APIs, or new dependencies.
-- Visualizations should use existing Tailwind/CSS patterns; no external animation or chart libraries.
-- The Dashboard layout uses a responsive `md` breakpoint (768px) to switch between the mobile off-canvas sidebar and the fixed desktop sidebar.
-- Navigation links and the brand logo automatically close the mobile sidebar upon selection to enhance UX.
-- Built `EmptyState` using existing local styles so it seamlessly matches the premium aesthetic without adding any new external icons or libraries.
-- The `EmptyState` pattern is designed to be easily extensible to other modules without a rewrite.
 
 ## Open Questions
-- Should the `EmptyState` and `LoadingState` primitives be rolled out to the remaining feature modules (Jobs, Certifications, Roadmap, Projects, Education) now, or should we focus on other polish tasks first?
+- There are still various feature modules (Jobs, Roadmap, etc.) that might contain invalid opacity modifiers (like `bg-accent/20`) hardcoded within module-specific card components.
+- Should we roll out the `EmptyState`/`LoadingState` components, or sweep the remaining feature modules to fix the invalid CSS modifiers next?
 
 ## Exact Next Recommended Task
-Continue Phase 4: Polish. Roll out the new `EmptyState` and `LoadingState` primitives to the remaining dashboard modules (Jobs, Certifications, Roadmap, Projects, Education) to establish consistency across the entire application.
+Continue Phase 4: Polish. Perform a comprehensive sweep of the remaining feature modules (Roadmap, Projects, Certifications, Jobs, Skills) to eliminate any remaining invalid Tailwind opacity modifiers (e.g., `/20`, `/50`) on custom CSS variables, ensuring 100% theme compatibility.
 
 ## Files The Next Session Should Read First
 - `docs/handoff.md`
