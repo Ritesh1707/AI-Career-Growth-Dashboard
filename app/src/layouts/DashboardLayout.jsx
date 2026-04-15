@@ -30,13 +30,18 @@ const headerTitleMap = {
   '/dashboard/education': 'Education',
 };
 
+const MOBILE_BREAKPOINT = 768;
+
 export default function DashboardLayout() {
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= MOBILE_BREAKPOINT);
   const headerTitle = headerTitleMap[location.pathname] ?? 'Dashboard';
+  const isSidebarInteractive = isDesktop || isMobileMenuOpen;
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
+  const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);
 
   // Close mobile menu on ESC key
   useEffect(() => {
@@ -52,11 +57,16 @@ export default function DashboardLayout() {
   // Close mobile menu when resizing to desktop
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 768 && isMobileMenuOpen) {
+      const nextIsDesktop = window.innerWidth >= MOBILE_BREAKPOINT;
+      setIsDesktop(nextIsDesktop);
+
+      if (nextIsDesktop && isMobileMenuOpen) {
         closeMobileMenu();
       }
     };
+
     window.addEventListener('resize', handleResize);
+    handleResize();
     return () => window.removeEventListener('resize', handleResize);
   }, [isMobileMenuOpen]);
 
@@ -84,27 +94,50 @@ export default function DashboardLayout() {
       )}
 
       {/* ── Sidebar ── */}
-      {/* We use `aria-hidden` and `inert` (if supported) on mobile when closed so it's not awkward to tab through */}
+      {/* On mobile when closed, hide the sidebar from assistive tech and keep its controls out of the tab order. */}
       <aside
+        id="mobile-sidebar"
         className={cn(
           "fixed top-0 left-0 h-screen w-sidebar bg-surface-raised border-r border-border transition-transform duration-300 ease-in-out flex flex-col z-30",
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full",
           "md:translate-x-0"
         )}
-        aria-hidden={!isMobileMenuOpen ? "true" : "false"}
-        // Remove aria-hidden on desktop
-        {...(!isMobileMenuOpen ? { tabIndex: -1 } : {})}
+        aria-hidden={isSidebarInteractive ? "false" : "true"}
+        {...(!isSidebarInteractive ? { tabIndex: -1 } : {})}
       >
         {/* Brand */}
-        <div className="h-topbar flex items-center px-5 border-b border-border">
+        <div className="h-topbar flex items-center justify-between px-5 border-b border-border gap-3">
           <Link
             to="/dashboard"
             onClick={closeMobileMenu}
             className="font-display font-semibold text-lg text-content tracking-tight"
-            tabIndex={!isMobileMenuOpen ? -1 : 0}
+            tabIndex={isSidebarInteractive ? 0 : -1}
           >
             CareerAI
           </Link>
+          <button
+            type="button"
+            onClick={closeMobileMenu}
+            className="md:hidden p-2 -mr-2 text-content-secondary hover:text-content hover:bg-surface rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-accent"
+            aria-label="Close sidebar"
+            tabIndex={isSidebarInteractive ? 0 : -1}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
         </div>
 
         {/* Navigation placeholder */}
@@ -120,7 +153,7 @@ export default function DashboardLayout() {
                   to={item.to}
                   end={item.to === '/dashboard'}
                   onClick={closeMobileMenu}
-                  tabIndex={!isMobileMenuOpen ? -1 : 0}
+                  tabIndex={isSidebarInteractive ? 0 : -1}
                   className={({ isActive }) =>
                     cn(
                       'block rounded-md px-3 py-2 text-sm transition-theme',
@@ -148,7 +181,7 @@ export default function DashboardLayout() {
         <div className="px-3 py-4 border-t border-border">
           <button
             onClick={toggleTheme}
-            tabIndex={!isMobileMenuOpen ? -1 : 0}
+            tabIndex={isSidebarInteractive ? 0 : -1}
             className="w-full px-3 py-2 rounded-md text-sm text-content-secondary hover:bg-accent-subtle hover:text-accent transition-theme text-left"
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
           >
@@ -160,18 +193,19 @@ export default function DashboardLayout() {
       {/* ── Main area ── */}
       <div 
         className="flex-1 md:ml-sidebar flex flex-col w-full min-w-0"
-        aria-hidden={isMobileMenuOpen ? "true" : "false"}
+        aria-hidden={!isDesktop && isMobileMenuOpen ? "true" : "false"}
       >
         {/* Top bar */}
         <header className="h-topbar bg-surface-raised/80 backdrop-blur-sm border-b border-border sticky top-0 z-10 flex items-center px-4 md:px-6 transition-theme gap-4">
           {/* Mobile menu toggle */}
           <button
-            onClick={() => setIsMobileMenuOpen(true)}
+            type="button"
+            onClick={toggleMobileMenu}
             className="md:hidden p-2 -ml-2 text-content-secondary hover:text-content hover:bg-surface rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-accent"
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-sidebar"
-            aria-label="Open sidebar"
-            tabIndex={isMobileMenuOpen ? -1 : 0}
+            aria-label={isMobileMenuOpen ? 'Close sidebar' : 'Open sidebar'}
+            tabIndex={!isDesktop && isMobileMenuOpen ? -1 : 0}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -183,6 +217,7 @@ export default function DashboardLayout() {
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
+              aria-hidden="true"
             >
               <line x1="3" y1="12" x2="21" y2="12"></line>
               <line x1="3" y1="6" x2="21" y2="6"></line>
