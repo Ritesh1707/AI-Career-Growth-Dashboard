@@ -28,7 +28,7 @@ export function RoadmapNextStepCard({ nextAction }) {
           </Text>
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid gap-3 md:grid-cols-2">
           <div className="rounded-xl border border-border bg-surface p-4">
             <p className="text-xs uppercase tracking-[0.18em] text-content-tertiary">
               Time block

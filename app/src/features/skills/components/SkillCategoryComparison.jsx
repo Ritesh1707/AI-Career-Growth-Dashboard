@@ -33,7 +33,7 @@ export function SkillCategoryComparison({ categories }) {
                   </Text>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3 lg:min-w-[220px]">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 lg:min-w-[220px]">
                   <div className="rounded-xl border border-border bg-surface px-4 py-3">
                     <p className="text-xs uppercase tracking-[0.18em] text-content-tertiary">
                       Current

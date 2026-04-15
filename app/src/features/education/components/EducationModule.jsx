@@ -23,7 +23,7 @@ export function EducationModule() {
         </div>
         
         {/* Education Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {mockEducationData.map((education) => (
             <EducationCard key={education.id} education={education} />
           ))}
