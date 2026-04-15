@@ -23,7 +23,7 @@ export function CertificationsModule() {
         </div>
         
         {/* Certification Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {mockCertificationsData.map((certification) => (
             <CertificationCard key={certification.id} certification={certification} />
           ))}
