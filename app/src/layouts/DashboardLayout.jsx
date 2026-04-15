@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Outlet, Link, NavLink, useLocation } from 'react-router-dom';
 import useTheme from '../hooks/useTheme';
 import { cn } from '../utils/cn';
@@ -32,24 +33,82 @@ const headerTitleMap = {
 export default function DashboardLayout() {
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const headerTitle = headerTitleMap[location.pathname] ?? 'Dashboard';
+
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+
+  // Close mobile menu on ESC key
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && isMobileMenuOpen) {
+        closeMobileMenu();
+      }
+    };
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [isMobileMenuOpen]);
+
+  // Close mobile menu when resizing to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && isMobileMenuOpen) {
+        closeMobileMenu();
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isMobileMenuOpen]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
 
   return (
     <div className="min-h-screen bg-surface transition-theme flex">
+      {/* Mobile Backdrop */}
+      {isMobileMenuOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-20 md:hidden backdrop-blur-sm transition-opacity"
+          onClick={closeMobileMenu}
+          aria-hidden="true"
+        />
+      )}
+
       {/* ── Sidebar ── */}
-      <aside className="fixed top-0 left-0 h-screen w-sidebar bg-surface-raised border-r border-border transition-theme flex flex-col z-30">
+      {/* We use `aria-hidden` and `inert` (if supported) on mobile when closed so it's not awkward to tab through */}
+      <aside
+        className={cn(
+          "fixed top-0 left-0 h-screen w-sidebar bg-surface-raised border-r border-border transition-transform duration-300 ease-in-out flex flex-col z-30",
+          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full",
+          "md:translate-x-0"
+        )}
+        aria-hidden={!isMobileMenuOpen ? "true" : "false"}
+        // Remove aria-hidden on desktop
+        {...(!isMobileMenuOpen ? { tabIndex: -1 } : {})}
+      >
         {/* Brand */}
         <div className="h-topbar flex items-center px-5 border-b border-border">
           <Link
             to="/dashboard"
+            onClick={closeMobileMenu}
             className="font-display font-semibold text-lg text-content tracking-tight"
+            tabIndex={!isMobileMenuOpen ? -1 : 0}
           >
             CareerAI
           </Link>
         </div>
 
         {/* Navigation placeholder */}
-        <nav className="flex-1 px-3 py-4">
+        <nav className="flex-1 px-3 py-4 overflow-y-auto">
           <p className="text-xs font-medium text-content-tertiary uppercase tracking-wider px-2 mb-3">
             Modules
           </p>
@@ -60,6 +119,8 @@ export default function DashboardLayout() {
                   key={item.label}
                   to={item.to}
                   end={item.to === '/dashboard'}
+                  onClick={closeMobileMenu}
+                  tabIndex={!isMobileMenuOpen ? -1 : 0}
                   className={({ isActive }) =>
                     cn(
                       'block rounded-md px-3 py-2 text-sm transition-theme',
@@ -87,6 +148,7 @@ export default function DashboardLayout() {
         <div className="px-3 py-4 border-t border-border">
           <button
             onClick={toggleTheme}
+            tabIndex={!isMobileMenuOpen ? -1 : 0}
             className="w-full px-3 py-2 rounded-md text-sm text-content-secondary hover:bg-accent-subtle hover:text-accent transition-theme text-left"
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
           >
@@ -96,14 +158,43 @@ export default function DashboardLayout() {
       </aside>
 
       {/* ── Main area ── */}
-      <div className="flex-1 ml-sidebar flex flex-col">
+      <div 
+        className="flex-1 md:ml-sidebar flex flex-col w-full min-w-0"
+        aria-hidden={isMobileMenuOpen ? "true" : "false"}
+      >
         {/* Top bar */}
-        <header className="h-topbar bg-surface-raised/80 backdrop-blur-sm border-b border-border sticky top-0 z-20 flex items-center px-6 transition-theme">
-          <h2 className="text-sm font-medium text-content-secondary">{headerTitle}</h2>
+        <header className="h-topbar bg-surface-raised/80 backdrop-blur-sm border-b border-border sticky top-0 z-10 flex items-center px-4 md:px-6 transition-theme gap-4">
+          {/* Mobile menu toggle */}
+          <button
+            onClick={() => setIsMobileMenuOpen(true)}
+            className="md:hidden p-2 -ml-2 text-content-secondary hover:text-content hover:bg-surface rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-accent"
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-sidebar"
+            aria-label="Open sidebar"
+            tabIndex={isMobileMenuOpen ? -1 : 0}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+
+          <h2 className="text-sm font-medium text-content-secondary truncate">{headerTitle}</h2>
         </header>
 
         {/* Content area */}
-        <main className="flex-1 p-6">
+        <main className="flex-1 p-4 md:p-6 overflow-x-hidden">
           <Outlet />
         </main>
       </div>
