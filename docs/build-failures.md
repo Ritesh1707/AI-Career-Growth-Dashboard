@@ -13,4 +13,5 @@
 - Files changed:
 - Result after rerun:
 - Remaining errors:
+<<<<<<< HEAD
 - Notes / prevention rule:
