@@ -5,10 +5,10 @@ export function Badge({ children, variant = 'default', className, ...props }) {
   
   const variants = {
     default: 'bg-surface-raised text-content border border-border',
-    accent: 'bg-accent-subtle text-accent border border-accent/20',
-    success: 'bg-success-subtle text-success border border-success/20',
-    warning: 'bg-warning-subtle text-warning border border-warning/20',
-    danger: 'bg-danger-subtle text-danger border border-danger/20',
+    accent: 'bg-accent-subtle text-accent border border-transparent',
+    success: 'bg-success-subtle text-success border border-transparent',
+    warning: 'bg-warning-subtle text-warning border border-transparent',
+    danger: 'bg-danger-subtle text-danger border border-transparent',
   };
 
   return (

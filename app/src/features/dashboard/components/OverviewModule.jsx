@@ -75,7 +75,7 @@ export function OverviewModule() {
               <TopPrioritiesList priorities={topPriorities} />
             </div>
             {/* Empty space or future module in the remaining 4 columns */}
-            <div className="lg:col-span-4 flex flex-col justify-center items-center rounded-lg border border-dashed border-border bg-surface-raised/20 p-6 text-center">
+            <div className="lg:col-span-4 flex flex-col justify-center items-center rounded-lg border border-dashed border-border bg-transparent p-6 text-center">
               <span className="text-content-tertiary text-sm">Future Module Space</span>
             </div>
           </div>

@@ -8,14 +8,14 @@ export function Button({
   disabled,
   ...props 
 }) {
-  const baseStyles = 'inline-flex items-center justify-center font-body font-medium rounded transition-colors duration-fast focus:outline-none focus:ring-2 focus:ring-accent/50 focus:ring-offset-2 dark:focus:ring-offset-surface disabled:opacity-50 disabled:cursor-not-allowed';
+  const baseStyles = 'inline-flex items-center justify-center font-body font-medium rounded transition-colors duration-fast focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 dark:focus:ring-offset-surface disabled:opacity-50 disabled:cursor-not-allowed';
   
   const variants = {
-    primary: 'bg-accent text-white hover:bg-accent-hover shadow-sm',
-    secondary: 'bg-surface-raised text-content border border-border hover:border-accent/50 hover:bg-accent-subtle hover:text-accent shadow-sm',
+    primary: 'bg-accent text-content-inverse hover:bg-accent-hover shadow-sm',
+    secondary: 'bg-surface-raised text-content border border-border hover:border-accent hover:bg-accent-subtle hover:text-accent shadow-sm',
     outline: 'bg-transparent text-content border border-border hover:border-content-secondary hover:text-content-secondary',
     ghost: 'bg-transparent text-content-secondary hover:bg-surface-raised hover:text-content',
-    danger: 'bg-danger text-white hover:opacity-90 shadow-sm'
+    danger: 'bg-danger text-content-inverse hover:opacity-90 shadow-sm'
   };
 
   const sizes = {

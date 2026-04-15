@@ -1,5 +1,37 @@
 # Progress Log
 
+## 2026-04-16 (Core Primitives & Theme Polish)
+
+### Project Goal
+Build an AI Career Growth Dashboard frontend that feels like a premium SaaS product, using React, JavaScript, Tailwind CSS, React Router, and mock data only for Phase 1.
+
+### Current Branch
+`feature/phase-4-polish-theme`
+
+### What Was Completed In This Session
+- Continued Phase 4 (Polish & Refinement) by standardizing the base UI theme and primitives.
+- Standardized the app shell background and default text colors in `DashboardLayout.jsx` and `tokens.css`.
+- Refined `Card` surface contrast, shadow, and rounded properties.
+- Tightened `Typography` hierarchy for primary, secondary, and muted text.
+- Enhanced `Badge` and `Button` theme parity, removing invalid CSS modifiers.
+- Cleaned up invalid Tailwind opacity modifiers (like `/20`, `/50`) on hex-based CSS variables in the touched layout and core components (`DashboardLayout.jsx`, `EmptyState.jsx`, `LoadingState.jsx`).
+- Verified text hierarchy, card contrast, borders, and general layout in both light and dark mode.
+- Verified production build compiles successfully.
+
+### Documentation Updates Made
+- Updated `docs/handoff.md` and `docs/progress-log.md` to reflect the completed Phase 4 Theme Polish milestone.
+
+### Decisions That Are Final And Should Not Be Reopened
+- Custom CSS variables defined in `tokens.css` cannot have Tailwind alpha/opacity modifiers applied directly (e.g., `bg-surface/30` will fail). Instead, explicitly map the subtle background colors (like `bg-surface-raised` or `bg-accent-subtle`) which contain preconfigured opacity in `tokens.css`.
+- Buttons and danger states explicitly use `text-content-inverse` to guarantee WCAG compliance when flipped on solid accents.
+
+### Open Questions
+- There are still some remaining instances of invalid opacity modifiers (like `bg-accent/20`) deep within feature modules (e.g., Roadmap, Projects).
+- Should the `EmptyState`/`LoadingState` components be rolled out to the rest of the app, or should we sweep the codebase to fix the remaining invalid opacity modifiers first?
+
+### Exact Next Recommended Task
+Continue Phase 4: Polish. Perform a comprehensive sweep of the remaining feature modules (Roadmap, Projects, Certifications, Jobs, Skills) to eliminate any remaining invalid Tailwind opacity modifiers on custom CSS variables.
+
 ## 2026-04-16 (Loading & Empty States Primitives)
 
 ### Project Goal

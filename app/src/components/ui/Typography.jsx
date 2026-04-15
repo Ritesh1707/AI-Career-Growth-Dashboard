@@ -25,7 +25,8 @@ export function Text({ children, variant = 'body', className, ...props }) {
   
   const variants = {
     body: 'text-base text-content',
-    muted: 'text-base text-content-secondary',
+    secondary: 'text-base text-content-secondary',
+    muted: 'text-base text-content-tertiary',
     small: 'text-sm text-content-secondary',
     lead: 'text-lg text-content-secondary',
   };

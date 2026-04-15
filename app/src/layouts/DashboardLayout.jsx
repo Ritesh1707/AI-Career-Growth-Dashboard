@@ -168,7 +168,7 @@ export default function DashboardLayout() {
               ) : (
                 <div
                   key={item.label}
-                  className="rounded-md px-3 py-2 text-sm text-content-tertiary/80 cursor-default"
+                  className="rounded-md px-3 py-2 text-sm text-content-tertiary opacity-80 cursor-default"
                 >
                   {item.label}
                 </div>
@@ -196,7 +196,7 @@ export default function DashboardLayout() {
         aria-hidden={!isDesktop && isMobileMenuOpen ? "true" : "false"}
       >
         {/* Top bar */}
-        <header className="h-topbar bg-surface-raised/80 backdrop-blur-sm border-b border-border sticky top-0 z-10 flex items-center px-4 md:px-6 transition-theme gap-4">
+        <header className="h-topbar bg-surface-overlay backdrop-blur-sm border-b border-border sticky top-0 z-10 flex items-center px-4 md:px-6 transition-theme gap-4">
           {/* Mobile menu toggle */}
           <button
             type="button"
