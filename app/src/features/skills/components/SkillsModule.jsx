@@ -48,8 +48,6 @@ export function SkillsModule() {
         <EmptyState 
           title="No Skills Logged Yet"
           description="Log your first skills or import them from a resume to see how you match up against your target role."
-          actionLabel="Log a Skill"
-          onAction={() => {}}
         />
       ) : (
         <>

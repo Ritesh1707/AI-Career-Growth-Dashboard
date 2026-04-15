@@ -9,9 +9,9 @@ export function Skeleton({ className, ...props }) {
   );
 }
 
-export function CardSkeleton({ className }) {
+export function CardSkeleton({ className, ...props }) {
   return (
-    <div className={cn("p-6 flex flex-col gap-4 border border-border rounded-lg bg-surface-raised", className)}>
+    <div className={cn("p-6 flex flex-col gap-4 border border-border rounded-lg bg-surface-raised", className)} {...props}>
       <Skeleton className="h-6 w-1/3" />
       <div className="space-y-2 mt-2">
         <Skeleton className="h-4 w-full" />
