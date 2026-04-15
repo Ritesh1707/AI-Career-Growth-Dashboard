@@ -6,7 +6,7 @@
 Build an AI Career Growth Dashboard frontend that feels like a premium SaaS product, using React, JavaScript, Tailwind CSS, React Router, and mock data only for Phase 1.
 
 ### Current Branch
-`feature/dashboard-overview`
+`feature/phase-4-polish-states`
 
 ### What Was Completed In This Session
 - Continued Phase 4 (Polish & Refinement).

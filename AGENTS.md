@@ -139,10 +139,10 @@ If continuing from a previous session:
 
 When a build, lint, or test command fails:
 
-1. Read `build-failures.md`.
+1. Read `docs/build-failures.md`.
 2. Read `logs/build-output.log` if it exists.
 3. Identify the first meaningful root-cause error.
-4. Update `build-failures.md` with:
+4. Update `docs/build-failures.md` with:
    - command run
    - first meaningful error
    - likely root cause
@@ -150,7 +150,7 @@ When a build, lint, or test command fails:
    - minimal fix plan
 5. Fix only the first root-cause error cluster.
 6. Re-run the command.
-7. Update `build-failures.md` with the result and remaining errors.
+7. Update `docs/build-failures.md` with the result and remaining errors.
 8. Stop unless the user explicitly asks to continue.
 
 Do not rely only on chat history if repository docs are available.
