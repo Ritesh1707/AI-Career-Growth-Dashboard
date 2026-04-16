@@ -26,7 +26,7 @@ export function EmptyState({
       <h3 className="font-display text-xl font-semibold text-content mb-2">{title}</h3>
       <p className="text-content-secondary text-sm max-w-sm mb-6">{description}</p>
       {actionLabel && onAction && (
-        <Button onClick={onAction} variant="secondary">
+        <Button onClick={onAction} variant="secondary" className="focus-visible:ring-offset-surface-raised">
           {actionLabel}
         </Button>
       )}

@@ -49,7 +49,7 @@ export function RoadmapNextStepCard({ nextAction }) {
       </CardContent>
 
       <CardFooter>
-        <Button variant="secondary" onClick={() => navigate('/dashboard')}>
+        <Button variant="secondary" onClick={() => navigate('/dashboard')} className="focus-visible:ring-offset-surface-raised">
           Return to Overview
         </Button>
       </CardFooter>
