@@ -19,7 +19,7 @@ Build an AI Career Growth Dashboard frontend that feels like a premium SaaS prod
 
 ## Decisions That Are Final And Should Not Be Reopened
 - Custom CSS properties initialized in `tokens.css` must rely on predefined subtle/raised tokens instead of Tailwind opacity modifiers (e.g., `bg-surface-raised` instead of `bg-surface/30`) to ensure broad browser compatibility.
-- Buttons rely on `text-content-inverse` to guarantee perfect contrast against accent or error backgrounds across themes.      
+- Buttons rely on `text-content-inverse` to guarantee perfect contrast against accent or error backgrounds across themes.
 - Dashboard modules use nested React Router routes.
 - The application uses `focus-visible` instead of `focus` to provide premium keyboard navigation without compromising mouse interaction aesthetics.
 
