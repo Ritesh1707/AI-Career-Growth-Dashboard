@@ -110,7 +110,7 @@ export default function DashboardLayout() {
           <Link
             to="/dashboard"
             onClick={closeMobileMenu}
-            className="font-display font-semibold text-lg text-content tracking-tight"
+            className="font-display font-semibold text-lg text-content tracking-tight rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             tabIndex={isSidebarInteractive ? 0 : -1}
           >
             CareerAI
@@ -118,7 +118,7 @@ export default function DashboardLayout() {
           <button
             type="button"
             onClick={closeMobileMenu}
-            className="md:hidden p-2 -mr-2 text-content-secondary hover:text-content hover:bg-surface rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-accent"
+            className="md:hidden p-2 -mr-2 text-content-secondary hover:text-content hover:bg-surface rounded-md transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             aria-label="Close sidebar"
             tabIndex={isSidebarInteractive ? 0 : -1}
           >
@@ -156,7 +156,7 @@ export default function DashboardLayout() {
                   tabIndex={isSidebarInteractive ? 0 : -1}
                   className={({ isActive }) =>
                     cn(
-                      'block rounded-md px-3 py-2 text-sm transition-theme',
+                      'block rounded-md px-3 py-2 text-sm transition-theme focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset',
                       isActive
                         ? 'bg-accent-subtle text-accent'
                         : 'text-content-secondary hover:bg-accent-subtle hover:text-accent'
@@ -182,7 +182,7 @@ export default function DashboardLayout() {
           <button
             onClick={toggleTheme}
             tabIndex={isSidebarInteractive ? 0 : -1}
-            className="w-full px-3 py-2 rounded-md text-sm text-content-secondary hover:bg-accent-subtle hover:text-accent transition-theme text-left"
+            className="w-full px-3 py-2 rounded-md text-sm text-content-secondary hover:bg-accent-subtle hover:text-accent transition-theme text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset"
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
           >
             {theme === 'dark' ? '☀ Light Mode' : '● Dark Mode'}
@@ -201,7 +201,7 @@ export default function DashboardLayout() {
           <button
             type="button"
             onClick={toggleMobileMenu}
-            className="md:hidden p-2 -ml-2 text-content-secondary hover:text-content hover:bg-surface rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-accent"
+            className="md:hidden p-2 -ml-2 text-content-secondary hover:text-content hover:bg-surface rounded-md transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-sidebar"
             aria-label={isMobileMenuOpen ? 'Close sidebar' : 'Open sidebar'}

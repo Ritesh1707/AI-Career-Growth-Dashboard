@@ -8,7 +8,7 @@ export function Button({
   disabled,
   ...props 
 }) {
-  const baseStyles = 'inline-flex items-center justify-center font-body font-medium rounded transition-colors duration-fast focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 dark:focus:ring-offset-surface disabled:opacity-50 disabled:cursor-not-allowed';
+  const baseStyles = 'inline-flex items-center justify-center font-body font-medium rounded transition-colors duration-fast focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:focus-visible:ring-offset-surface disabled:opacity-50 disabled:cursor-not-allowed';
   
   const variants = {
     primary: 'bg-accent text-content-inverse hover:bg-accent-hover shadow-sm',
