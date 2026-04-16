@@ -101,7 +101,7 @@ export default function DesignSystemPage() {
               </CardContent>
               <CardFooter className="justify-between">
                 <Badge variant="accent">Draft</Badge>
-                <Button variant="outline" size="sm">View Details</Button>
+                <Button variant="outline" size="sm" className="focus-visible:ring-offset-surface-raised">View Details</Button>
               </CardFooter>
             </Card>
 
@@ -121,7 +121,7 @@ export default function DesignSystemPage() {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button className="w-full">Take Action</Button>
+                <Button className="w-full focus-visible:ring-offset-surface-raised">Take Action</Button>
               </CardFooter>
             </Card>
 
