@@ -1,21 +1,12 @@
-import { useState, useEffect } from 'react';
-import { mockOverviewData } from '../data';
+import { useFetchOverview } from '../hooks/useFetchOverview';
 import { PredictiveActionCard } from './PredictiveActionCard';
 import { CareerScoreCard } from './CareerScoreCard';
 import { TopPrioritiesList } from './TopPrioritiesList';
 import { CardSkeleton } from '../../../components/ui/LoadingState';
+import { EmptyState } from '../../../components/ui/EmptyState';
 
 export function OverviewModule() {
-  const [isLoading, setIsLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 800);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const { user, predictiveNextStep, topPriorities, careerProgress } = mockOverviewData;
+  const { data, isLoading, error, refetch } = useFetchOverview();
 
   return (
     <div className="flex flex-col gap-6">
@@ -29,7 +20,7 @@ export function OverviewModule() {
         </p>
       </div>
 
-      {isLoading ? (
+      {isLoading && (
         <>
           {/* 
             Grid Layout:
@@ -60,19 +51,37 @@ export function OverviewModule() {
             </div>
           </div>
         </>
-      ) : (
+      )}
+
+      {error && !isLoading && (
+        <EmptyState
+          title="Unable to load overview"
+          description={error.message || 'There was a problem fetching your career data. Please try again later.'}
+          actionLabel="Retry"
+          onAction={refetch}
+        />
+      )}
+
+      {!data && !isLoading && !error && (
+        <EmptyState
+          title="No career data found"
+          description="We couldn't find any career data to display."
+        />
+      )}
+
+      {data && !isLoading && !error && (
         <>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div className="lg:col-span-8 flex flex-col">
-              <PredictiveActionCard nextStep={predictiveNextStep} />
+              <PredictiveActionCard nextStep={data.predictiveNextStep} />
             </div>
             <div className="lg:col-span-4 flex flex-col">
-              <CareerScoreCard user={user} careerProgress={careerProgress} />
+              <CareerScoreCard user={data.user} careerProgress={data.careerProgress} />
             </div>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div className="lg:col-span-8 flex flex-col">
-              <TopPrioritiesList priorities={topPriorities} />
+              <TopPrioritiesList priorities={data.topPriorities} />
             </div>
             {/* Empty space or future module in the remaining 4 columns */}
             <div className="lg:col-span-4 flex flex-col justify-center items-center rounded-lg border border-dashed border-border bg-transparent p-6 text-center">
