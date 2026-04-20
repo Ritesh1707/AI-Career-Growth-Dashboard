@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import { mockSkillsData } from '../data';
+import { useFetchSkills } from '../hooks/useFetchSkills';
 import { SkillsHeroCard } from './SkillsHeroCard';
 import { SkillCategoryComparison } from './SkillCategoryComparison';
 import { MissingSkillsCard } from './MissingSkillsCard';
@@ -7,17 +6,10 @@ import { CardSkeleton } from '../../../components/ui/LoadingState';
 import { EmptyState } from '../../../components/ui/EmptyState';
 
 export function SkillsModule() {
-  const [isLoading, setIsLoading] = useState(true);
+  const { data, isLoading, error, refetch } = useFetchSkills();
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 800);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Determine if we truly have no data (or are simulating it for this milestone)
-  const hasNoData = !mockSkillsData || !mockSkillsData.categoryComparisons || mockSkillsData.categoryComparisons.length === 0;
+  // Determine if we truly have no data
+  const hasNoData = !data || !data.categoryComparisons || data.categoryComparisons.length === 0;
 
   return (
     <div className="flex flex-col gap-6">
@@ -32,7 +24,7 @@ export function SkillsModule() {
         </div>
       </div>
 
-      {isLoading ? (
+      {isLoading && (
         <>
           <CardSkeleton className="h-[200px]" />
           <div className="grid grid-cols-1 gap-6 xl:grid-cols-12">
@@ -44,25 +36,38 @@ export function SkillsModule() {
             </div>
           </div>
         </>
-      ) : hasNoData ? (
+      )}
+
+      {error && !isLoading && (
+        <EmptyState
+          title="Unable to load skills"
+          description={error.message || 'There was a problem fetching your skills data. Please try again later.'}
+          actionLabel="Retry"
+          onAction={refetch}
+        />
+      )}
+
+      {!error && !isLoading && hasNoData && (
         <EmptyState 
           title="No Skills Logged Yet"
           description="Log your first skills or import them from a resume to see how you match up against your target role."
         />
-      ) : (
+      )}
+
+      {data && !isLoading && !error && !hasNoData && (
         <>
           <SkillsHeroCard
-            targetRole={mockSkillsData.targetRole}
-            overallMatch={mockSkillsData.overallMatch}
-            summary={mockSkillsData.summary}
+            targetRole={data.targetRole}
+            overallMatch={data.overallMatch}
+            summary={data.summary}
           />
 
           <div className="grid grid-cols-1 gap-6 xl:grid-cols-12">
             <div className="xl:col-span-7">
-              <SkillCategoryComparison categories={mockSkillsData.categoryComparisons} />
+              <SkillCategoryComparison categories={data.categoryComparisons} />
             </div>
             <div className="xl:col-span-5">
-              <MissingSkillsCard skills={mockSkillsData.missingSkills} />
+              <MissingSkillsCard skills={data.missingSkills} />
             </div>
           </div>
         </>
