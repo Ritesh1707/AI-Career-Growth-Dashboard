@@ -3,11 +3,17 @@ import { mockOverviewData } from '../data';
 /**
  * Simulates fetching overview data from an API.
  * @param {boolean} simulateError - If true, the promise will reject.
- * @returns {Promise<Object>} The overview data.
+ * @param {AbortSignal} [signal] - Optional signal to abort the request.
+ * @returns {Promise<{data: Object, meta: Object}>} The structured response containing overview data and metadata.
  */
-export async function fetchOverviewData(simulateError = false) {
+export function fetchOverviewData(simulateError = false, signal) {
   return new Promise((resolve, reject) => {
-    setTimeout(() => {
+    if (signal?.aborted) {
+      reject(new DOMException('Aborted', 'AbortError'));
+      return;
+    }
+
+    const timer = setTimeout(() => {
       if (simulateError) {
         reject(new Error('Failed to fetch overview data.'));
       } else {
@@ -21,5 +27,12 @@ export async function fetchOverviewData(simulateError = false) {
         });
       }
     }, 800); // simulate 800ms network latency
+
+    if (signal) {
+      signal.addEventListener('abort', () => {
+        clearTimeout(timer);
+        reject(new DOMException('Aborted', 'AbortError'));
+      });
+    }
   });
 }

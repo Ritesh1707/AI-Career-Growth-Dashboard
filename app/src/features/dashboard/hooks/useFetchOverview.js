@@ -13,10 +13,12 @@ export function useFetchOverview(simulateError = false) {
 
   useEffect(() => {
     let isMounted = true;
+    const controller = new AbortController();
+
     setIsLoading(true);
     setError(null);
 
-    fetchOverviewData(simulateError)
+    fetchOverviewData(simulateError, controller.signal)
       .then((response) => {
         if (isMounted) {
           setData(response.data);
@@ -24,6 +26,7 @@ export function useFetchOverview(simulateError = false) {
         }
       })
       .catch((err) => {
+        if (err.name === 'AbortError') return;
         if (isMounted) {
           setError(err);
           setIsLoading(false);
@@ -32,6 +35,7 @@ export function useFetchOverview(simulateError = false) {
 
     return () => {
       isMounted = false;
+      controller.abort();
     };
   }, [simulateError, trigger]);
 
