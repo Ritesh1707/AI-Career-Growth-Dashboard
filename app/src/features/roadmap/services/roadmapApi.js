@@ -8,12 +8,32 @@ import { mockRoadmapData } from '../data';
  */
 export function fetchRoadmapData(simulateError = false, signal) {
   return new Promise((resolve, reject) => {
+    let abortListener;
+    let timer;
+
+    const cleanup = () => {
+      if (timer) clearTimeout(timer);
+      if (signal && abortListener) {
+        signal.removeEventListener('abort', abortListener);
+      }
+    };
+
     if (signal?.aborted) {
       reject(new DOMException('Aborted', 'AbortError'));
       return;
     }
 
-    const timer = setTimeout(() => {
+    abortListener = () => {
+      cleanup();
+      reject(new DOMException('Aborted', 'AbortError'));
+    };
+
+    if (signal) {
+      signal.addEventListener('abort', abortListener);
+    }
+
+    timer = setTimeout(() => {
+      cleanup();
       if (simulateError) {
         reject(new Error('Failed to fetch roadmap data.'));
       } else {
@@ -27,12 +47,5 @@ export function fetchRoadmapData(simulateError = false, signal) {
         });
       }
     }, 200); // simulate 200ms network latency
-
-    if (signal) {
-      signal.addEventListener('abort', () => {
-        clearTimeout(timer);
-        reject(new DOMException('Aborted', 'AbortError'));
-      });
-    }
   });
 }

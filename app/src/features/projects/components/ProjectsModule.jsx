@@ -37,7 +37,7 @@ export function ProjectsModule() {
         {error && !isLoading && (
           <EmptyState 
             title="Unable to load projects" 
-            description="We encountered an issue retrieving your project portfolio. Please check your connection and try again."
+            description="There was a problem loading your projects data. Please check your connection and try again."
             actionLabel="Try Again"
             onAction={refetch}
           />
@@ -47,8 +47,6 @@ export function ProjectsModule() {
           <EmptyState 
             title="No Projects Found" 
             description="You haven't added any projects to your portfolio yet. Start building projects to stand out to employers."
-            actionLabel="Refresh Data"
-            onAction={refetch}
           />
         )}
 

@@ -37,7 +37,7 @@ export function EducationModule() {
         {error && !isLoading && (
           <EmptyState 
             title="Unable to load education history" 
-            description="We encountered an issue retrieving your educational profile. Please check your connection and try again."
+            description="There was a problem loading your education data. Please check your connection and try again."
             actionLabel="Try Again"
             onAction={refetch}
           />
@@ -47,8 +47,6 @@ export function EducationModule() {
           <EmptyState 
             title="No Education Entries Found" 
             description="You haven't added any formal or self-driven education to your profile yet. Add your learning milestones to track your progress."
-            actionLabel="Refresh Data"
-            onAction={refetch}
           />
         )}
 
