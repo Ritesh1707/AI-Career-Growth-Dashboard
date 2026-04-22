@@ -2,6 +2,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui
 import { Badge } from '../../../components/ui/Badge';
 import { Text } from '../../../components/ui/Typography';
 import { cn } from '../../../utils/cn';
+import { m } from 'framer-motion';
+import { useMotionVariants } from '../../../utils/motion';
 
 const stageStyles = {
   complete: {
@@ -25,6 +27,16 @@ const stageStyles = {
 };
 
 export function RoadmapStageTimeline({ stages }) {
+  const { slideUp } = useMotionVariants();
+  
+  const containerVariants = {
+    initial: { opacity: 0 },
+    animate: {
+      opacity: 1,
+      transition: { staggerChildren: 0.15 }
+    }
+  };
+
   return (
     <Card className="h-full">
       <CardHeader className="pb-4">
@@ -35,12 +47,17 @@ export function RoadmapStageTimeline({ stages }) {
       </CardHeader>
 
       <CardContent>
-        <div className="space-y-5">
+        <m.div 
+          className="space-y-5"
+          variants={containerVariants}
+          initial="initial"
+          animate="animate"
+        >
           {stages.map((stage, index) => {
             const style = stageStyles[stage.status] ?? stageStyles.upcoming;
 
             return (
-              <div key={stage.id} className="flex gap-4">
+              <m.div key={stage.id} variants={slideUp} className="flex gap-4">
                 <div className="flex flex-col items-center">
                   <span className={cn('mt-1 h-3.5 w-3.5 rounded-full', style.dot)} />
                   {index < stages.length - 1 && (
@@ -72,10 +89,10 @@ export function RoadmapStageTimeline({ stages }) {
                     </div>
                   </div>
                 </div>
-              </div>
+              </m.div>
             );
           })}
-        </div>
+        </m.div>
       </CardContent>
     </Card>
   );
