@@ -1,8 +1,12 @@
-import { mockCertificationsData } from '../data';
+import { useFetchCertifications } from '../hooks/useFetchCertifications';
 import { CertificationCard } from './CertificationCard';
 import { Heading, Text } from '../../../components/ui/Typography';
+import { CardSkeleton } from '../../../components/ui/LoadingState';
+import { EmptyState } from '../../../components/ui/EmptyState';
 
 export function CertificationsModule() {
+  const { data: certifications, isLoading, error, refetch } = useFetchCertifications();
+
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Module Header */}
@@ -22,12 +26,40 @@ export function CertificationsModule() {
           </Text>
         </div>
         
-        {/* Certification Cards Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {mockCertificationsData.map((certification) => (
-            <CertificationCard key={certification.id} certification={certification} />
-          ))}
-        </div>
+        {isLoading && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <CardSkeleton className="h-[300px]" />
+            <CardSkeleton className="h-[300px]" />
+            <CardSkeleton className="h-[300px]" />
+            <CardSkeleton className="h-[300px]" />
+          </div>
+        )}
+
+        {error && !isLoading && (
+          <EmptyState 
+            title="Unable to load certifications" 
+            description="We encountered an issue retrieving your certification path. Please check your connection and try again."
+            actionLabel="Try Again"
+            onAction={refetch}
+          />
+        )}
+
+        {!error && !isLoading && (!certifications || certifications.length === 0) && (
+          <EmptyState 
+            title="No Certifications Found" 
+            description="You haven't added any certifications to your path yet. Start planning credentials to stand out to employers."
+            actionLabel="Refresh Data"
+            onAction={refetch}
+          />
+        )}
+
+        {certifications && certifications.length > 0 && !isLoading && !error && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {certifications.map((certification) => (
+              <CertificationCard key={certification.id} certification={certification} />
+            ))}
+          </div>
+        )}
       </section>
     </div>
   );
