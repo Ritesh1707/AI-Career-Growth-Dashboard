@@ -4,32 +4,27 @@
 Build an AI Career Growth Dashboard frontend that feels like a premium SaaS product, using React, JavaScript, Tailwind CSS, React Router, and mock data only for Phase 1.
 
 ## Current Branch
-`feature/education-api-integration`
+`refactor/async-hook-abstraction`
 
 ## What Was Completed In This Session
-- Concluded Phase 5 (API Integration & Data Flow Foundation) core module migrations.
-- Ported the `EducationModule` to the established asynchronous data fetching pattern.
-- Created `educationApi.js` to simulate network latency using `setTimeout` and wrap the mock data in a real API response contract (`data`, `meta`).
-- Created `useFetchEducation.js`, a custom native hook to handle `data`, `isLoading`, `error`, and `refetch` states.
-- Replaced the synchronous mock data import in `EducationModule` with the new hook.
-- Implemented robust UI states using the existing `CardSkeleton`, and `EmptyState` components.
-- Added explicit logic to handle the "successful but empty data" edge case in the UI with a custom EmptyState tailored to education entries.
-- Maintained exact layout parity with the original synchronous components, avoiding Cumulative Layout Shift during loading.
-- Verified all states (loading, error, empty data, success) and ensured the production build compiles successfully.
+- Completed an architectural refactor to dry up the boilerplate `useFetch[Feature]` hooks across all 7 dashboard modules.
+- Created `app/src/hooks/useAsyncResource.js`, a lightweight, shared hook for managing async lifecycle (`data`, `isLoading`, `error`, `refetch`).
+- Implemented strict unmount/abort error handling in the shared hook to prevent stale state updates and infinite loops.
+- Refactored `useFetchOverview`, `useFetchSkills`, `useFetchRoadmap`, `useFetchJobs`, `useFetchCertifications`, `useFetchProjects`, and `useFetchEducation` to wrap and delegate to the new `useAsyncResource` hook via memoized `fetchCallback`s.
+- Maintained exact current UI behaviors, API response contracts, and feature-folder isolation.
 
 ## Documentation Updates Made
-- Updated `docs/handoff.md` and `docs/progress-log.md` to reflect the completed Phase 5 Dashboard Education API Integration.
+- Updated `docs/handoff.md` and `docs/progress-log.md` to reflect the completed Async Hook Abstraction refactoring milestone.
 
 ## Decisions That Are Final And Should Not Be Reopened
-- Stick to native React `useState`/`useEffect` and `fetch` API wrappers to manage network state for now, strictly adhering to the "no unnecessary dependencies" rule.
-- Feature-specific fetch hooks manage their own state and expose `refetch` rather than using a single massive global data context.
-- We deliberately duplicated the `useFetch[Module]` boilerplate again instead of creating a generic `useAsync` hook to adhere strictly to the "avoid premature abstraction" and "keep feature folders isolated" rules. Now that all modules are done, a shared abstraction is technically justified, but it should be a distinct architectural task.
+- Async state management is centralized into `useAsyncResource`, avoiding duplicated `AbortController` boilerplate.
+- The 7 feature-specific wrapper hooks (`useFetch[Feature]`) are intentionally preserved. They shield the UI components from implementation details and maintain feature-folder isolation while delegating purely to the shared resource hook.
 
 ## Open Questions
-- Phase 5 module migration is complete. Do we move to Phase 6 or do a refactor to dry up the boilerplate first?
+- Now that Phase 5 and its cleanup are complete, do we move to Phase 6 (if defined) or continue to another polish pass?
 
 ## Exact Next Recommended Task
-Phase 5 core module migration is complete. The exact next recommended milestone is to either start Phase 6 (if defined) or perform an architectural review to consolidate the repeated `useFetch` boilerplate into a generic `useAsync` hook if the team agrees it's time for abstraction.
+Phase 5 and the subsequent async abstraction refactoring are complete. The next recommended task is to review the project scope and determine if we should proceed to Phase 6 or do a final comprehensive UI review.
 
 ## Files The Next Session Should Read First
 - `docs/handoff.md`
