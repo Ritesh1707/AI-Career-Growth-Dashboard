@@ -4,9 +4,24 @@ import { CareerScoreCard } from './CareerScoreCard';
 import { TopPrioritiesList } from './TopPrioritiesList';
 import { CardSkeleton } from '../../../components/ui/LoadingState';
 import { EmptyState } from '../../../components/ui/EmptyState';
+import { m, AnimatePresence } from 'framer-motion';
+import { useMotionVariants } from '../../../utils/motion';
 
 export function OverviewModule() {
   const { data, isLoading, error, refetch } = useFetchOverview();
+  const { fadeTransition, slideUp } = useMotionVariants();
+
+  const containerVariants = {
+    initial: { opacity: 0 },
+    animate: {
+      opacity: 1,
+      transition: {
+        ...fadeTransition.animate.transition,
+        staggerChildren: 0.1,
+      }
+    },
+    exit: fadeTransition.exit
+  };
 
   return (
     <div className="flex flex-col gap-6">
@@ -20,76 +35,77 @@ export function OverviewModule() {
         </p>
       </div>
 
-      {isLoading && (
-        <>
-          {/* 
-            Grid Layout:
-            - Mobile: Single column stack
-            - Desktop: 12-column grid.
-              - Left column (8 cols) holds the primary focal PredictiveActionCard
-              - Right column (4 cols) holds the CareerScoreCard
-          */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <div className="lg:col-span-8 flex flex-col">
-              <CardSkeleton className="h-[280px]" />
+      <AnimatePresence mode="wait">
+        {isLoading && (
+          <m.div key="loading" {...fadeTransition} className="flex flex-col gap-6">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <div className="lg:col-span-8 flex flex-col">
+                <CardSkeleton className="h-[280px]" />
+              </div>
+              <div className="lg:col-span-4 flex flex-col">
+                <CardSkeleton className="h-[280px]" />
+              </div>
             </div>
-            <div className="lg:col-span-4 flex flex-col">
-              <CardSkeleton className="h-[280px]" />
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <div className="lg:col-span-8 flex flex-col">
+                <CardSkeleton className="h-[240px]" />
+              </div>
+              <div className="lg:col-span-4 flex flex-col">
+                <CardSkeleton className="h-[240px]" />
+              </div>
             </div>
-          </div>
-          {/* 
-            Second row:
-            - Mobile: Single column
-            - Desktop: 12-column grid
-          */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <div className="lg:col-span-8 flex flex-col">
-              <CardSkeleton className="h-[240px]" />
-            </div>
-            <div className="lg:col-span-4 flex flex-col">
-              <CardSkeleton className="h-[240px]" />
-            </div>
-          </div>
-        </>
-      )}
+          </m.div>
+        )}
 
-      {error && !isLoading && (
-        <EmptyState
-          title="Unable to load overview"
-          description="There was a problem loading your overview data. Please check your connection and try again."
-          actionLabel="Try Again"
-          onAction={refetch}
-        />
-      )}
+        {error && !isLoading && (
+          <m.div key="error" {...fadeTransition}>
+            <EmptyState
+              title="Unable to load overview"
+              description="There was a problem loading your overview data. Please check your connection and try again."
+              actionLabel="Try Again"
+              onAction={refetch}
+            />
+          </m.div>
+        )}
 
-      {!data && !isLoading && !error && (
-        <EmptyState
-          title="No career data found"
-          description="We couldn't find any career data to display."
-        />
-      )}
+        {!data && !isLoading && !error && (
+          <m.div key="empty" {...fadeTransition}>
+            <EmptyState
+              title="No career data found"
+              description="We couldn't find any career data to display."
+            />
+          </m.div>
+        )}
 
-      {data && !isLoading && !error && (
-        <>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <div className="lg:col-span-8 flex flex-col">
-              <PredictiveActionCard nextStep={data.predictiveNextStep} />
+        {data && !isLoading && !error && (
+          <m.div 
+            key="content" 
+            variants={containerVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className="flex flex-col gap-6"
+          >
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <m.div variants={slideUp} className="lg:col-span-8 flex flex-col">
+                <PredictiveActionCard nextStep={data.predictiveNextStep} />
+              </m.div>
+              <m.div variants={slideUp} className="lg:col-span-4 flex flex-col">
+                <CareerScoreCard user={data.user} careerProgress={data.careerProgress} />
+              </m.div>
             </div>
-            <div className="lg:col-span-4 flex flex-col">
-              <CareerScoreCard user={data.user} careerProgress={data.careerProgress} />
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <m.div variants={slideUp} className="lg:col-span-8 flex flex-col">
+                <TopPrioritiesList priorities={data.topPriorities} />
+              </m.div>
+              {/* Empty space or future module in the remaining 4 columns */}
+              <m.div variants={slideUp} className="lg:col-span-4 flex flex-col justify-center items-center rounded-lg border border-dashed border-border bg-transparent p-6 text-center">
+                <span className="text-content-tertiary text-sm">Future Module Space</span>
+              </m.div>
             </div>
-          </div>
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <div className="lg:col-span-8 flex flex-col">
-              <TopPrioritiesList priorities={data.topPriorities} />
-            </div>
-            {/* Empty space or future module in the remaining 4 columns */}
-            <div className="lg:col-span-4 flex flex-col justify-center items-center rounded-lg border border-dashed border-border bg-transparent p-6 text-center">
-              <span className="text-content-tertiary text-sm">Future Module Space</span>
-            </div>
-          </div>
-        </>
-      )}
+          </m.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

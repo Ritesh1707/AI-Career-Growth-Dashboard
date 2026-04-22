@@ -1,6 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from '../../../components/ui/Card';
 import { Badge } from '../../../components/ui/Badge';
 import { Text } from '../../../components/ui/Typography';
+import { m } from 'framer-motion';
+import { transitions } from '../../../utils/motion';
 
 export function SkillCategoryComparison({ categories }) {
   return (
@@ -56,9 +58,11 @@ export function SkillCategoryComparison({ categories }) {
                     <span>{category.currentLevel}%</span>
                   </div>
                   <div className="h-2.5 w-full overflow-hidden rounded-full bg-surface">
-                    <div
+                    <m.div
                       className="h-full rounded-full bg-accent"
-                      style={{ width: `${category.currentLevel}%` }}
+                      initial={{ width: 0 }}
+                      animate={{ width: `${category.currentLevel}%` }}
+                      transition={{ duration: 1, ease: "easeOut" }}
                     />
                   </div>
                 </div>
@@ -69,9 +73,11 @@ export function SkillCategoryComparison({ categories }) {
                     <span>{category.targetLevel}%</span>
                   </div>
                   <div className="h-2.5 w-full overflow-hidden rounded-full bg-surface">
-                    <div
+                    <m.div
                       className="h-full rounded-full bg-content-secondary/60"
-                      style={{ width: `${category.targetLevel}%` }}
+                      initial={{ width: 0 }}
+                      animate={{ width: `${category.targetLevel}%` }}
+                      transition={{ duration: 1, ease: "easeOut" }}
                     />
                   </div>
                 </div>

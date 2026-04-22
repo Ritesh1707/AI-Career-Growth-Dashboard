@@ -1,0 +1,41 @@
+import { useState, useEffect, useCallback } from 'react';
+
+export function useAsyncResource(fetchCallback) {
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [trigger, setTrigger] = useState(0);
+
+  const refetch = useCallback(() => {
+    setTrigger(prev => prev + 1);
+  }, []);
+
+  useEffect(() => {
+    let isMounted = true;
+    const controller = new AbortController();
+
+    setIsLoading(true);
+    setError(null);
+
+    fetchCallback(controller.signal)
+      .then((response) => {
+        if (isMounted) {
+          setData(response.data);
+          setIsLoading(false);
+        }
+      })
+      .catch((err) => {
+        if (isMounted && err.name !== 'AbortError') {
+          setError(err);
+          setIsLoading(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+      controller.abort();
+    };
+  }, [fetchCallback, trigger]);
+
+  return { data, isLoading, error, refetch };
+}

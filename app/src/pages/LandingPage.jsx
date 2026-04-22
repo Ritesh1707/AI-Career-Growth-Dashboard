@@ -1,5 +1,8 @@
 import LandingHeader from '../features/landing/components/LandingHeader';
 import HeroSection from '../features/landing/components/HeroSection';
+import FeaturesSection from '../features/landing/components/FeaturesSection';
+import HowItWorksSection from '../features/landing/components/HowItWorksSection';
+import CtaSection from '../features/landing/components/CtaSection';
 import LandingFooter from '../features/landing/components/LandingFooter';
 
 /**
@@ -13,6 +16,9 @@ export default function LandingPage() {
       <LandingHeader />
       <main className="flex-1 flex flex-col">
         <HeroSection />
+        <FeaturesSection />
+        <HowItWorksSection />
+        <CtaSection />
       </main>
       <LandingFooter />
     </div>

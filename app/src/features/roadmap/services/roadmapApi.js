@@ -46,6 +46,6 @@ export function fetchRoadmapData(simulateError = false, signal) {
           }
         });
       }
-    }, 800); // simulate 800ms network latency
+    }, 200); // simulate 200ms network latency
   });
 }

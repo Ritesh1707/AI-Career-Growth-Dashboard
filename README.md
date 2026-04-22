@@ -1,155 +1,133 @@
-# AI Career Growth Dashboard (Frontend Learning Lab)
+# AI Career Growth Dashboard
 
-Enterprise-style React frontend learning project for building an **AI Career Growth Dashboard** - a product-grade, SaaS-feeling web app with a cinematic landing page and a premium dashboard experience.
+An enterprise-grade, frontend-first web application designed to act as a "Personal Command Center" for career growth. This project serves as a showcase for scalable React architecture, premium SaaS-style UI/UX design, and disciplined engineering workflows.
 
-Phase 1 is **frontend-only** and uses **mock data** (no backend, no auth, no real APIs).
+Phase 1 focuses exclusively on the **frontend experience** using intelligent mock data, establishing a robust foundation for future API/backend integration.
 
-## Table of Contents
-- [Why this repo exists](#why-this-repo-exists)
-- [Project status](#project-status)
-- [Tech stack](#tech-stack)
-- [Repository layout](#repository-layout)
-- [Getting started](#getting-started)
-- [Scripts](#scripts)
-- [Architecture and conventions](#architecture-and-conventions)
-- [Documentation index](#documentation-index)
-- [Workflow (how we build)](#workflow-how-we-build)
-- [Contributing](#contributing)
-- [Troubleshooting](#troubleshooting)
+---
 
-## Why this repo exists
-This repository is structured like a real enterprise frontend codebase so you can practice:
-- modular architecture and folder boundaries
-- predictable, reviewable workflows
-- documentation-first development
-- incremental, maintainable UI implementation
+## 📖 Table of Contents
 
-## Project status
-- [x] Vite + React app scaffolded in `app/`
-- [x] Repo-level docs and workflows established (`docs/`, `workflows/`)
-- [ ] Product UI (landing, dashboard shell, modules) is planned but not implemented yet
+- [Overview](#overview)
+- [Key Features](#key-features)
+- [Tech Stack](#tech-stack)
+- [Architecture](#architecture)
+- [Motion & Accessibility System](#motion--accessibility-system)
+- [Project Status](#project-status)
+- [Getting Started](#getting-started)
+- [Documentation Index](#documentation-index)
 
-## Tech stack
-**Currently in the repo:**
-- React 18
-- Vite 5
-- ESLint
+---
 
-**Target direction (per project docs):**
-- React Router
-- Tailwind CSS
-- Dark/Light mode support
-- Mock-data-first services layer
+## 🎯 Overview
 
-Note: Target items are documented as direction and may not be wired in yet.
+The AI Career Growth Dashboard solves the problem of disconnected career tracking by providing a single, unified view of a professional's trajectory. 
 
-## Repository layout
+It consists of two main experiences:
+1. **Cinematic Landing Page:** A premium, motion-enhanced entry point that clearly communicates the product's value proposition (Predictive Next Actions, Skill-Gap Analysis, and Market Intelligence).
+2. **Product Dashboard:** A highly modular, responsive SaaS shell housing 7 distinct career modules driven by "predictive" rather than "descriptive" data.
+
+## ✨ Key Features
+
+- **Predictive Overview:** A command center highlighting the user's Career Score, top priorities, and highest-leverage next actions.
+- **Skill-Gap Visualizer:** Dynamic progress tracking comparing current skill levels against target role requirements.
+- **Career Roadmap:** A chronological, interactive timeline translating long-term goals into executable milestones.
+- **Market Intelligence (Jobs):** Data-driven job cards with "AI Rationale" tooltips explaining role alignment.
+- **Certifications & Projects:** Dedicated tracking for formal credentials and portfolio work with simulated progress states.
+- **Education Journey:** Chronological logging of formal and self-driven learning tracks.
+
+## 🛠 Tech Stack
+
+- **Framework:** React 18
+- **Build Tool:** Vite 5
+- **Routing:** React Router v7
+- **Styling:** Tailwind CSS + Vanilla CSS Custom Properties (`tokens.css`) for strict theme enforcement
+- **Motion:** Framer Motion (Optimized via `LazyMotion` and `domAnimation` to reduce bundle size)
+- **Linting:** ESLint
+
+## 🏗 Architecture
+
+The codebase strictly follows a **Feature-Driven Architecture**, prioritizing isolation, clear boundaries, and scalability.
+
 ```text
-.
-|-- app/                  # Vite + React application (run the product from here)
-|   |-- src/               # Application source
-|   |-- public/
-|   `-- package.json        # App scripts (dev/build/lint/preview)
-|
-|-- docs/                 # Product + engineering documentation (source of truth)
-|-- workflows/            # Operating procedures for AI-assisted dev
-|-- automation/           # Automation notes / helper docs
-|-- tooling/              # Dev tooling notes / helper docs
-|-- scratch/              # Experiments / temporary work (keep tidy)
-|-- AGENTS.md              # Project constraints + working agreements
-`-- opencode.json          # Local tooling plugin configuration
+app/
+├── src/
+│   ├── app/            # App-level setup and top-level providers
+│   ├── components/     # Shared, domain-agnostic UI primitives (Card, Badge, Button, EmptyState)
+│   ├── features/       # Feature modules (dashboard, landing, skills, roadmap, etc.)
+│   ├── hooks/          # Reusable custom hooks (e.g., useTheme, useAsyncResource)
+│   ├── layouts/        # Structural shells (LandingLayout, DashboardLayout)
+│   ├── pages/          # Route-level compositions mapping layouts to features
+│   ├── services/       # Data layer (currently housing mock API simulations and latency wrappers)
+│   ├── styles/         # Global styles and design tokens (tokens.css)
+│   └── utils/          # Pure utility helpers (cn.js, motion.js)
 ```
 
-## Getting started
+### Architectural Decisions
+- **Custom Primitives:** Standardized UI elements (`Button`, `Badge`, `Typography`, `LoadingState`, `EmptyState`) ensure visual consistency and WCAG compliance across the app.
+- **Async Abstraction:** Data fetching is standardized via a shared `useAsyncResource` hook, elegantly handling race conditions, simulated latency, loading skeletons, and error boundaries without leaking implementation details into the UI components.
+- **Mock-Data First:** All modules are powered by feature-local service files simulating network latency and returning data in standard API contract shapes (`{ data, meta }`), allowing for seamless swapping to real REST/GraphQL APIs in Phase 2.
+
+## 🌊 Motion & Accessibility System
+
+The application features a bespoke, project-wide motion system defined in `app/src/utils/motion.js`.
+
+- **Snappy & Subdued:** Transitions prioritize speed (150ms-300ms) and hardware-accelerated properties (`opacity`, `transform`) over theatrical, blocking animations.
+- **Reusable Variants:** Centralized exports (`fadeTransition`, `slideUp`, `scaleUp`) ensure consistent physical behavior across route transitions, sidebar interactions, and module staggers.
+- **Accessible by Default:** The motion system dynamically reads the user's OS-level `prefers-reduced-motion` settings. If enabled, spatial animations (slides, scales) gracefully degrade to instant or pure-opacity crossfades.
+
+## 📊 Project Status
+
+**Phase 1 (Frontend MVP) is substantially complete.**
+- [x] Vite + React application scaffolded.
+- [x] Design System and light/dark theme tokens finalized.
+- [x] Responsive Dashboard Shell (mobile sidebar, routing) implemented.
+- [x] All 7 Core Modules integrated with asynchronous mock data hooks.
+- [x] Shared `EmptyState` and `LoadingState` primitives applied universally.
+- [x] Cinematic Landing Page with animated product preview completed.
+- [x] Project-wide Framer Motion system integrated.
+
+**Next Steps (Future Phases):**
+- Real backend API integration (Node.js/Express or Python/FastAPI).
+- User authentication and persistent sessions.
+- Integration with LLMs for real-time predictive career insights.
+
+## 🚀 Getting Started
+
 ### Prerequisites
 - Node.js **18+** (Node 20 LTS recommended)
-- npm (ships with Node)
+- npm
 
-### Install
+### Installation
 ```bash
 cd app
 npm install
 ```
 
-### Run the app
+### Development Server
 ```bash
 cd app
 npm run dev
 ```
-Then open the local URL printed by Vite (typically `http://localhost:5173`).
+Open `http://localhost:5173` to view the application.
 
-## Scripts
-All scripts live under `app/package.json`.
+### Production Build
+```bash
+cd app
+npm run build
+npm run preview
+```
 
-From `app/`:
-- `npm run dev` - start dev server
-- `npm run build` - production build
-- `npm run preview` - preview production build locally
-- `npm run lint` - run ESLint (max warnings = 0)
+## 📚 Documentation Index
 
-## Architecture and conventions
-High-level rules (enforced by repo docs and intended discipline):
-- **All application code lives in `app/`.**
-- Prefer **feature-based organization** with shared UI separated from feature-only components.
-- Prefer **clarity over cleverness** and avoid premature abstraction.
-- Use **mock data first** (design shapes to be replaceable by APIs later).
-- Do **not** add new dependencies without explicit approval.
+This repository is intentionally documentation-heavy to simulate enterprise-grade engineering communication.
 
-For folder responsibilities, see: [`docs/architecture.md`](docs/architecture.md).
-
-## Documentation index
-These files are the project source of truth (especially when multiple AI tools are used):
-- Product requirements: [`docs/prd.md`](docs/prd.md)
-- Architecture direction: [`docs/architecture.md`](docs/architecture.md)
-- Coding standards: [`docs/coding-standards.md`](docs/coding-standards.md)
-- Team workflow: [`docs/workflows.md`](docs/workflows.md)
-- Session continuity: [`docs/handoff.md`](docs/handoff.md)
-- Progress tracking: [`docs/progress-log.md`](docs/progress-log.md)
-- Decisions log: [`docs/decisions.md`](docs/decisions.md)
-- Project working agreement: [`AGENTS.md`](AGENTS.md)
-
-## Workflow (how we build)
-This repo is intentionally documentation- and workflow-heavy to simulate an enterprise environment.
-
-Recommended flow:
-1. Plan first (define scope + impacted files)
-2. Implement one small, reviewable step
-3. Review the diff for maintainability and architecture fit
-4. Update `docs/progress-log.md` and `docs/handoff.md` for continuity
-
-Workflow playbooks:
-- Planning: [`workflows/plan-first.md`](workflows/plan-first.md)
-- Implementation: [`workflows/implement-step.md`](workflows/implement-step.md)
-- Diff review: [`workflows/review-diff.md`](workflows/review-diff.md)
-- Debugging: [`workflows/debug-flow.md`](workflows/debug-flow.md)
-
-## Contributing
-This project is optimized for learning high-signal engineering habits.
-
-Guidelines:
-- Keep PRs small and scoped.
-- Do not mix refactors with feature work unless necessary.
-- Follow `docs/coding-standards.md`.
-- Do not introduce backend/auth/real APIs in Phase 1.
-- Do not add dependencies without approval.
-
-Suggested PR checklist:
-- `npm run lint` passes (from `app/`)
-- UI changes include empty/loading states where relevant
-- Folder placement matches `docs/architecture.md`
-- Progress/handoff docs updated if the change is meaningful
-
-## Troubleshooting
-- Port already in use: stop the other process or run `npm run dev -- --port 5174`.
-- Node version issues: ensure Node 18+ (`node -v`).
-- Install problems: delete `app/node_modules` and rerun `npm install`.
+- **[Product Requirements Document (PRD)](docs/prd.md)**: Core features, user personas, and acceptance criteria.
+- **[Architecture](docs/architecture.md)**: Detailed breakdown of folder structures and technical decisions.
+- **[Coding Standards](docs/coding-standards.md)**: Rules for components, styling, and state management.
+- **[Progress Log](docs/progress-log.md)**: Detailed historical ledger of all development milestones.
+- **[Handoff Notes](docs/handoff.md)**: Current branch state and immediate next steps for continuous development.
+- **[AGENTS.md](AGENTS.md)**: Project constraints and working agreements for AI-assisted development.
 
 ---
-
-### Non-goals (Phase 1)
-- Backend services, authentication, databases
-- Real API integrations
-- Multi-user production hardening
-
-### License
-No license file is currently included in this repository.
+*Designed and built as a demonstration of premium frontend engineering practices.*
