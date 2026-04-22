@@ -4,8 +4,9 @@ node_modules/
 .pnp
 .pnp.js
 */graphify-out
-plan.md
-build-output.log
+graphify-out/*
+!graphify-out/.gitkeep
+.graphify_detect.json
 # Build outputs
 dist/
 build/
