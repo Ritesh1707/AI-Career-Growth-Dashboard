@@ -1,12 +1,12 @@
-import { mockOverviewData } from '../data';
+import { mockProjectsData } from '../data';
 
 /**
- * Simulates fetching overview data from an API.
+ * Simulates fetching projects data from an API.
  * @param {boolean} simulateError - If true, the promise will reject.
  * @param {AbortSignal} [signal] - Optional signal to abort the request.
- * @returns {Promise<{data: Object, meta: Object}>} The structured response containing overview data and metadata.
+ * @returns {Promise<{data: Array, meta: Object}>} The structured response.
  */
-export function fetchOverviewData(simulateError = false, signal) {
+export function fetchProjectsData(simulateError = false, signal) {
   return new Promise((resolve, reject) => {
     let abortListener;
     let timer;
@@ -35,11 +35,10 @@ export function fetchOverviewData(simulateError = false, signal) {
     timer = setTimeout(() => {
       cleanup();
       if (simulateError) {
-        reject(new Error('Failed to fetch overview data.'));
+        reject(new Error('Failed to fetch projects data.'));
       } else {
-        // Return a structured response that mimics a real API
         resolve({
-          data: mockOverviewData,
+          data: mockProjectsData,
           meta: {
             status: 'success',
             timestamp: new Date().toISOString()

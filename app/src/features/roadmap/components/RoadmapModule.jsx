@@ -37,8 +37,8 @@ export function RoadmapModule() {
 
       {error && !isLoading && (
         <EmptyState
-          title="Failed to load roadmap"
-          description="There was a problem connecting to the career trajectory service. Please try again."
+          title="Unable to load roadmap"
+          description="There was a problem loading your roadmap data. Please check your connection and try again."
           actionLabel="Try Again"
           onAction={refetch}
         />

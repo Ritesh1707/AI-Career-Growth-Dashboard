@@ -56,8 +56,8 @@ export function OverviewModule() {
       {error && !isLoading && (
         <EmptyState
           title="Unable to load overview"
-          description={error.message || 'There was a problem fetching your career data. Please try again later.'}
-          actionLabel="Retry"
+          description="There was a problem loading your overview data. Please check your connection and try again."
+          actionLabel="Try Again"
           onAction={refetch}
         />
       )}
