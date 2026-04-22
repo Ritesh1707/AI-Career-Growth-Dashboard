@@ -41,8 +41,8 @@ export function SkillsModule() {
       {error && !isLoading && (
         <EmptyState
           title="Unable to load skills"
-          description={error.message || 'There was a problem fetching your skills data. Please try again later.'}
-          actionLabel="Retry"
+          description="There was a problem loading your skills data. Please check your connection and try again."
+          actionLabel="Try Again"
           onAction={refetch}
         />
       )}

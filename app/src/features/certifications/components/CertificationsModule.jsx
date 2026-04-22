@@ -38,7 +38,7 @@ export function CertificationsModule() {
         {error && !isLoading && (
           <EmptyState 
             title="Unable to load certifications" 
-            description="We encountered an issue retrieving your certification path. Please check your connection and try again."
+            description="There was a problem loading your certifications data. Please check your connection and try again."
             actionLabel="Try Again"
             onAction={refetch}
           />
@@ -48,8 +48,6 @@ export function CertificationsModule() {
           <EmptyState 
             title="No Certifications Found" 
             description="You haven't added any certifications to your path yet. Start planning credentials to stand out to employers."
-            actionLabel="Refresh Data"
-            onAction={refetch}
           />
         )}
 
