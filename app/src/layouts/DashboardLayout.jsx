@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Outlet, Link, NavLink, useLocation } from 'react-router-dom';
+import { LazyMotion, domAnimation, m, AnimatePresence, useReducedMotion } from 'framer-motion';
 import useTheme from '../hooks/useTheme';
 import { cn } from '../utils/cn';
+import { useMotionVariants, transitions } from '../utils/motion';
 
 /**
  * DashboardLayout
@@ -39,6 +41,9 @@ export default function DashboardLayout() {
   const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= MOBILE_BREAKPOINT);
   const headerTitle = headerTitleMap[location.pathname] ?? 'Dashboard';
   const isSidebarInteractive = isDesktop || isMobileMenuOpen;
+  
+  const shouldReduceMotion = useReducedMotion();
+  const { fadeTransition } = useMotionVariants();
 
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
   const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);
@@ -83,156 +88,177 @@ export default function DashboardLayout() {
   }, [isMobileMenuOpen]);
 
   return (
-    <div className="min-h-screen bg-surface transition-theme flex">
-      {/* Mobile Backdrop */}
-      {isMobileMenuOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-20 md:hidden backdrop-blur-sm transition-opacity"
-          onClick={closeMobileMenu}
-          aria-hidden="true"
-        />
-      )}
-
-      {/* ── Sidebar ── */}
-      {/* On mobile when closed, hide the sidebar from assistive tech and keep its controls out of the tab order. */}
-      <aside
-        id="mobile-sidebar"
-        className={cn(
-          "fixed top-0 left-0 h-screen w-sidebar bg-surface-raised border-r border-border transition-transform duration-300 ease-in-out flex flex-col z-30",
-          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full",
-          "md:translate-x-0"
-        )}
-        aria-hidden={isSidebarInteractive ? "false" : "true"}
-        {...(!isSidebarInteractive ? { tabIndex: -1 } : {})}
-      >
-        {/* Brand */}
-        <div className="h-topbar flex items-center justify-between px-5 border-b border-border gap-3">
-          <Link
-            to="/dashboard"
-            onClick={closeMobileMenu}
-            className="font-display font-semibold text-lg text-content tracking-tight rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-            tabIndex={isSidebarInteractive ? 0 : -1}
-          >
-            CareerAI
-          </Link>
-          <button
-            type="button"
-            onClick={closeMobileMenu}
-            className="md:hidden p-2 -mr-2 text-content-secondary hover:text-content hover:bg-surface rounded-md transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-            aria-label="Close sidebar"
-            tabIndex={isSidebarInteractive ? 0 : -1}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+    <LazyMotion features={domAnimation}>
+      <div className="min-h-screen bg-surface transition-theme flex">
+        {/* Mobile Backdrop */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <m.div
+              variants={fadeTransition}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="fixed inset-0 bg-black/50 z-20 md:hidden backdrop-blur-sm"
+              onClick={closeMobileMenu}
               aria-hidden="true"
-            >
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
-          </button>
-        </div>
+            />
+          )}
+        </AnimatePresence>
 
-        {/* Navigation placeholder */}
-        <nav className="flex-1 px-3 py-4 overflow-y-auto">
-          <p className="text-xs font-medium text-content-tertiary uppercase tracking-wider px-2 mb-3">
-            Modules
-          </p>
-          <div className="space-y-1">
-            {navItems.map((item) =>
-              item.enabled ? (
-                <NavLink
-                  key={item.label}
-                  to={item.to}
-                  end={item.to === '/dashboard'}
-                  onClick={closeMobileMenu}
-                  tabIndex={isSidebarInteractive ? 0 : -1}
-                  className={({ isActive }) =>
-                    cn(
-                      'block rounded-md px-3 py-2 text-sm transition-theme focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset',
-                      isActive
-                        ? 'bg-accent-subtle text-accent'
-                        : 'text-content-secondary hover:bg-accent-subtle hover:text-accent'
-                    )
-                  }
-                >
-                  {item.label}
-                </NavLink>
-              ) : (
-                <div
-                  key={item.label}
-                  className="rounded-md px-3 py-2 text-sm text-content-tertiary opacity-80 cursor-default"
-                >
-                  {item.label}
-                </div>
-              )
-            )}
+        {/* ── Sidebar ── */}
+        {/* On mobile when closed, hide the sidebar from assistive tech and keep its controls out of the tab order. */}
+        <m.aside
+          id="mobile-sidebar"
+          initial={false}
+          animate={{
+            x: isDesktop || isMobileMenuOpen ? 0 : '-100%'
+          }}
+          transition={shouldReduceMotion ? { duration: 0 } : transitions.normal}
+          className={cn(
+            "fixed top-0 left-0 h-screen w-sidebar bg-surface-raised border-r border-border flex flex-col z-30"
+          )}
+          aria-hidden={isSidebarInteractive ? "false" : "true"}
+          {...(!isSidebarInteractive ? { tabIndex: -1 } : {})}
+        >
+          {/* Brand */}
+          <div className="h-topbar flex items-center justify-between px-5 border-b border-border gap-3">
+            <Link
+              to="/dashboard"
+              onClick={closeMobileMenu}
+              className="font-display font-semibold text-lg text-content tracking-tight rounded-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              tabIndex={isSidebarInteractive ? 0 : -1}
+            >
+              CareerAI
+            </Link>
+            <button
+              type="button"
+              onClick={closeMobileMenu}
+              className="md:hidden p-2 -mr-2 text-content-secondary hover:text-content hover:bg-surface rounded-md transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              aria-label="Close sidebar"
+              tabIndex={isSidebarInteractive ? 0 : -1}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
           </div>
-        </nav>
 
-        {/* Bottom section */}
-        <div className="px-3 py-4 border-t border-border">
-          <button
-            onClick={toggleTheme}
-            tabIndex={isSidebarInteractive ? 0 : -1}
-            className="w-full px-3 py-2 rounded-md text-sm text-content-secondary hover:bg-accent-subtle hover:text-accent transition-theme text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset"
-            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-          >
-            {theme === 'dark' ? '☀ Light Mode' : '● Dark Mode'}
-          </button>
-        </div>
-      </aside>
+          {/* Navigation placeholder */}
+          <nav className="flex-1 px-3 py-4 overflow-y-auto">
+            <p className="text-xs font-medium text-content-tertiary uppercase tracking-wider px-2 mb-3">
+              Modules
+            </p>
+            <div className="space-y-1">
+              {navItems.map((item) =>
+                item.enabled ? (
+                  <NavLink
+                    key={item.label}
+                    to={item.to}
+                    end={item.to === '/dashboard'}
+                    onClick={closeMobileMenu}
+                    tabIndex={isSidebarInteractive ? 0 : -1}
+                    className={({ isActive }) =>
+                      cn(
+                        'block rounded-md px-3 py-2 text-sm transition-theme focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset',
+                        isActive
+                          ? 'bg-accent-subtle text-accent'
+                          : 'text-content-secondary hover:bg-accent-subtle hover:text-accent'
+                      )
+                    }
+                  >
+                    {item.label}
+                  </NavLink>
+                ) : (
+                  <div
+                    key={item.label}
+                    className="rounded-md px-3 py-2 text-sm text-content-tertiary opacity-80 cursor-default"
+                  >
+                    {item.label}
+                  </div>
+                )
+              )}
+            </div>
+          </nav>
 
-      {/* ── Main area ── */}
-      <div 
-        className="flex-1 md:ml-sidebar flex flex-col w-full min-w-0"
-        aria-hidden={!isDesktop && isMobileMenuOpen ? "true" : "false"}
-      >
-        {/* Top bar */}
-        <header className="h-topbar bg-surface-overlay backdrop-blur-sm border-b border-border sticky top-0 z-10 flex items-center px-4 md:px-6 transition-theme gap-4">
-          {/* Mobile menu toggle */}
-          <button
-            type="button"
-            onClick={toggleMobileMenu}
-            className="md:hidden p-2 -ml-2 text-content-secondary hover:text-content hover:bg-surface rounded-md transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
-            aria-expanded={isMobileMenuOpen}
-            aria-controls="mobile-sidebar"
-            aria-label={isMobileMenuOpen ? 'Close sidebar' : 'Open sidebar'}
-            tabIndex={!isDesktop && isMobileMenuOpen ? -1 : 0}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              aria-hidden="true"
+          {/* Bottom section */}
+          <div className="px-3 py-4 border-t border-border">
+            <button
+              onClick={toggleTheme}
+              tabIndex={isSidebarInteractive ? 0 : -1}
+              className="w-full px-3 py-2 rounded-md text-sm text-content-secondary hover:bg-accent-subtle hover:text-accent transition-theme text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-inset"
+              aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
             >
-              <line x1="3" y1="12" x2="21" y2="12"></line>
-              <line x1="3" y1="6" x2="21" y2="6"></line>
-              <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
-          </button>
+              {theme === 'dark' ? '☀ Light Mode' : '● Dark Mode'}
+            </button>
+          </div>
+        </m.aside>
 
-          <h2 className="text-sm font-medium text-content-secondary truncate">{headerTitle}</h2>
-        </header>
+        {/* ── Main area ── */}
+        <div 
+          className="flex-1 md:ml-sidebar flex flex-col w-full min-w-0"
+          aria-hidden={!isDesktop && isMobileMenuOpen ? "true" : "false"}
+        >
+          {/* Top bar */}
+          <header className="h-topbar bg-surface-overlay backdrop-blur-sm border-b border-border sticky top-0 z-10 flex items-center px-4 md:px-6 transition-theme gap-4">
+            {/* Mobile menu toggle */}
+            <button
+              type="button"
+              onClick={toggleMobileMenu}
+              className="md:hidden p-2 -ml-2 text-content-secondary hover:text-content hover:bg-surface rounded-md transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-sidebar"
+              aria-label={isMobileMenuOpen ? 'Close sidebar' : 'Open sidebar'}
+              tabIndex={!isDesktop && isMobileMenuOpen ? -1 : 0}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </button>
 
-        {/* Content area */}
-        <main className="flex-1 p-4 md:p-6 overflow-x-hidden">
-          <Outlet />
-        </main>
+            <h2 className="text-sm font-medium text-content-secondary truncate">{headerTitle}</h2>
+          </header>
+
+          {/* Content area */}
+          <main className="flex-1 p-4 md:p-6 overflow-x-hidden relative">
+            <AnimatePresence mode="wait">
+              <m.div
+                key={location.pathname}
+                variants={fadeTransition}
+                initial="initial"
+                animate="animate"
+                exit="exit"
+              >
+                <Outlet />
+              </m.div>
+            </AnimatePresence>
+          </main>
+        </div>
       </div>
-    </div>
+    </LazyMotion>
   );
 }
