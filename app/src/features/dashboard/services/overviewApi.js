@@ -8,12 +8,32 @@ import { mockOverviewData } from '../data';
  */
 export function fetchOverviewData(simulateError = false, signal) {
   return new Promise((resolve, reject) => {
+    let abortListener;
+    let timer;
+
+    const cleanup = () => {
+      if (timer) clearTimeout(timer);
+      if (signal && abortListener) {
+        signal.removeEventListener('abort', abortListener);
+      }
+    };
+
     if (signal?.aborted) {
       reject(new DOMException('Aborted', 'AbortError'));
       return;
     }
 
-    const timer = setTimeout(() => {
+    abortListener = () => {
+      cleanup();
+      reject(new DOMException('Aborted', 'AbortError'));
+    };
+
+    if (signal) {
+      signal.addEventListener('abort', abortListener);
+    }
+
+    timer = setTimeout(() => {
+      cleanup();
       if (simulateError) {
         reject(new Error('Failed to fetch overview data.'));
       } else {
@@ -27,12 +47,5 @@ export function fetchOverviewData(simulateError = false, signal) {
         });
       }
     }, 800); // simulate 800ms network latency
-
-    if (signal) {
-      signal.addEventListener('abort', () => {
-        clearTimeout(timer);
-        reject(new DOMException('Aborted', 'AbortError'));
-      });
-    }
   });
 }
