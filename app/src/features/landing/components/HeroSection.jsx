@@ -41,34 +41,29 @@ export default function HeroSection() {
         <div className="relative mx-auto max-w-7xl px-6 text-center">
           
           {/* Main Text Content */}
-          <m.div 
-            variants={containerVariants}
-            initial="hidden"
-            animate="show"
-            className="flex flex-col items-center"
-          >
+          <div className="flex flex-col items-center">
             {/* Top Badge */}
-            <m.div variants={itemVariants} className="mb-6 flex justify-center">
+            <div className="mb-6 flex justify-center">
               <Badge variant="accent" className="px-3 py-1 shadow-sm">
                 <span className="mr-2">✨</span> Introducing AI Copilot
               </Badge>
-            </m.div>
+            </div>
 
             {/* Headlines */}
-            <m.div variants={itemVariants}>
+            <div>
               <Heading level={1} className="mx-auto max-w-4xl mb-6">
                 Your Personal Command Center for Career Growth
               </Heading>
-            </m.div>
+            </div>
             
-            <m.div variants={itemVariants}>
+            <m.div variants={itemVariants} initial="hidden" animate="show">
               <Text variant="lead" className="mx-auto max-w-2xl mb-10">
                 Track your skills, close knowledge gaps, and align with your dream job using predictive, AI-driven career intelligence.
               </Text>
             </m.div>
 
             {/* CTAs */}
-            <m.div variants={itemVariants} className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
+            <m.div variants={itemVariants} initial="hidden" animate="show" className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
               <Button variant="primary" size="lg" onClick={() => navigate('/dashboard')}>
                 Get Started for Free
               </Button>
@@ -76,7 +71,7 @@ export default function HeroSection() {
                 See How It Works
               </Button>
             </m.div>
-          </m.div>
+          </div>
 
           {/* Abstract Product Preview */}
           <m.div 
